@@ -1,0 +1,9 @@
+{
+    "database_connection": {
+      "host": "localhost",
+      "user": "root",
+      "database": "denam",
+      "password": "YOUR_DB_PASSWORD"
+    }
+  }
+  
