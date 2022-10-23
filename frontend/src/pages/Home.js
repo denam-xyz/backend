@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 export default function Home() {
   return (
-    <div className="m-0 py-2 align-middle text-center text-banner">
+    <div className="align-middle text-center text-banner">
       <div className="h-screen flex">
         <div className="grow space-y-10 self-center">
           <h1 className="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
@@ -18,9 +18,9 @@ export default function Home() {
               for="search"
               class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-gray-300"
             >
-              Your Email
+              Domain
             </label>
-            <div class="relative">
+            <div class="relative w-1/3">
               <div class="flex absolute inset-y-0 left-0 items-center pl-3 pointer-events-none">
                 <svg
                   aria-hidden="true"
@@ -42,7 +42,7 @@ export default function Home() {
                 type="search"
                 id="search"
                 class="block p-4 pl-10 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
-                placeholder="Search"
+                placeholder="Find your new domain"
                 required
               />
               <button
@@ -53,7 +53,7 @@ export default function Home() {
               </button>
             </div>
           </form>
-          <h4 class="text-2xl font-bold dark:text-white">
+          <h4 class="text-2xl font-bold dark:text-white pt-20">
             Search for decentralized names with our verified integrations
           </h4>
         </div>
