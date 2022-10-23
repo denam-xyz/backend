@@ -3,7 +3,7 @@ import { DataContext } from "./DataContext";
 import React, { useState } from "react";
 import Navbar from "./components/Navbar";
 import Footer from "./components/Footer";
-import Docs from "./pages/Docs";
+import DomainSearch from "./pages/DomainSearch";
 import Home from "./pages/Home";
 
 function App() {
@@ -13,7 +13,7 @@ function App() {
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/docs" element={<Docs />} />
+          <Route path="/domain-search" element={<DomainSearch />} />
         </Routes>
       </body>
       <Footer />
