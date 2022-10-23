@@ -114,7 +114,7 @@ const NetworkService = {
     var promise = new Promise((resolve, reject) => {
       var headers = {
         Accept: "application/json",
-        "Content-Type": "application/json",
+        // "Content-Type": "application/json",
       };
 
       if (session) {

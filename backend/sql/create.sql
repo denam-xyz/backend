@@ -18,13 +18,7 @@ CREATE TABLE `unstoppable_domain` (
 );
 
 /*TEST VALUES FOR testing purposes*/
-INSERT INTO
-	`unstoppable_domain` (`description`, `name`, `url`)
-VALUES
-	(
-		'Some descrip',
-		'descrip.crypto',
-		'descrip test url'
-	);
+INSERT INTO `unstoppable_domain` (`description`, `name`, `url`)
+VALUE ('Some descrip','descrip.crypto','descrip test url');
 
 /**/
