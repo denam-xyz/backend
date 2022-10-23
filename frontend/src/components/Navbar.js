@@ -1,6 +1,6 @@
 const Navbar = () => {
   return (
-    <nav class="px-2 bg-white border-gray-200 dark:bg-gray-900 sticky top-0 z-50 shadow-md mt-1 pt-2 pb-2">
+    <nav class="px-2 bg-white border-gray-200 dark:bg-gray-900 sticky top-0 shadow-md mt-1 pt-2 pb-2">
       <div class="container flex flex-wrap justify-between items-center mx-auto">
         <a href="#" class="flex items-center">
           <img

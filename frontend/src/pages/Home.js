@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 
 export default function Home() {
   return (
-    <div className="align-middle text-center text-banner">
+    <div className="align-middle text-center text-banner -mt-12">
       <div className="h-screen flex">
         <div className="grow space-y-10 self-center">
           <h1 className="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
@@ -13,7 +13,7 @@ export default function Home() {
             and capital can unlock long-term value and drive economic growth.
           </p>
 
-          <form className="flex justify-center">
+          <form className="flex justify-center pt-14">
             <label
               for="search"
               class="mb-2 text-sm font-medium text-gray-900 sr-only dark:text-gray-300"
