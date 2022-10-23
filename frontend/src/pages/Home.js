@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 export default function Home() {
   return (
     <div className="align-middle text-center text-banner -mt-12">
-      <div className="h-screen flex">
+      <div className="h-screen flex ">
         <div className="grow space-y-10 self-center">
           <h1 className="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
             Discover your web3 identity
@@ -58,39 +58,60 @@ export default function Home() {
           </h4>
         </div>
       </div>
-      <div className="p-3 mb-2 bg-gray-900 text-white h-screen">
-        <h2>Stress-free names, powered by denam</h2>
-        <p>Put the power of denam behind your decentralized identity.</p>
-        <div className="d-flex flex-row justify-content-around">
-          <div className="column">
-            <h4>Simple Search</h4>
-            <p>
-              A Web3 domain uniquely represents your on-chain indentity. We make
-              it easy.
-            </p>
-          </div>
-          <div className="column">
-            <h4>Multichain-Enabled</h4>
-            <p>
-              Whether that be Ethereum, Polygon, or Avalanche. We got your
-              covered.
-            </p>
-          </div>
-          <div className="column">
-            <h4>Empowering the Ecosystem</h4>
-            <p>
-              With 100+ of blockchains, join the ever-growing domain ecosystem.
-            </p>
+      <div className="flex bg-gray-900 text-white h-screen">
+        <div className="grow space-y-20 self-center">
+          <h1 class="text-5xl font-extrabold dark:text-gray-900">
+            Stress-free names, powered by denam
+          </h1>
+          <h3 class="text-3xl font-extrabold ml-2 font-semibold text-gray-500 dark:text-gray-400">
+            Put the power of denam behind your decentralized identity.
+          </h3>
+          <p></p>
+          <div class="grid grid-cols-3 gap-y-4 gap-x-1">
+            <div className="">
+              <h3 class="text-3xl font-bold dark:text-white">Simple Search</h3>
+              <p class="mb-3 text-lg font-light text-gray-400 md:text-xl dark:text-gray-400">
+                A Web3 domain uniquely represents your on-chain indentity. We
+                make it easy.
+              </p>
+            </div>
+            <div class="">
+              <h3 class="text-3xl font-bold dark:text-white">
+                Multichain-Enabled
+              </h3>
+              <p class="mb-3 text-lg font-light text-gray-400 md:text-xl dark:text-gray-400">
+                Whether that be Ethereum, Polygon, or Avalanche. We got your
+                covered.
+              </p>
+            </div>
+            <div class="">
+              <h3 class="text-3xl font-bold dark:text-white">
+                Empowering the Ecosystem
+              </h3>
+              <p class="mb-3 text-lg font-light text-gray-400 md:text-xl dark:text-gray-400">
+                With 100+ of blockchains, join the ever-growing domain
+                ecosystem.
+              </p>
+            </div>
+            <div class="col-start-1 col-end-7 mt-14">
+              <h3 class="text-3xl font-bold dark:text-white">
+                Searching for your new domain shouldn't incur additional
+                charges.<br className="mt-5"></br>
+                <span class="underline underline-offset-3 decoration-4 decoration-blue-400 dark:decoration-blue-600">
+                  We believe in empowering users with their web3 identitiy.
+                </span>
+              </h3>
+            </div>
           </div>
         </div>
       </div>
-      <div className="h-screen">
+      {/* <div className="h-screen">
         <h2>No Token. No DAO. No Bullshit.</h2>
         <p>
           Searching for your new domain shouldn't incur additional charges. We
           believe in empowering users with their Web3 identitiy.
         </p>
-      </div>
+      </div> */}
     </div>
   );
 }
