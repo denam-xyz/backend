@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from "react";
 import { Routes, Route, useNavigate } from "react-router-dom";
 
+import space_id from "../assets/space_id.png";
+import unstoppable_domains from "../assets/unstoppable_domains.png";
+import ens from "../assets/ens.png";
+import near from "../assets/near_logo.png";
+import pns from "../assets/pns.png";
+
 export default function Home() {
   const navigate = useNavigate();
   const [searchInput, setSearchInput] = useState("");
@@ -69,6 +75,17 @@ export default function Home() {
           <h4 class="text-2xl font-bold dark:text-white pt-20">
             Search for decentralized names with our verified integrations
           </h4>
+          <div class="flex justify-evenly relative">
+            <img class="h-12" src={pns} alt="image description" />
+            <img
+              class="h-11"
+              src={unstoppable_domains}
+              alt="image description"
+            />
+            <img class="h-7" src={space_id} alt="image description" />
+            <img class="h-11 rounded-lg" src={ens} alt="image description" />
+            <img class="h-10" src={near} alt="image description" />
+          </div>
         </div>
       </div>
       <div className="flex bg-gray-900 text-white h-screen pt-20">
