@@ -88,7 +88,7 @@ export default function Home() {
           </div>
         </div>
       </div>
-      <div className="flex bg-gray-900 text-white h-screen pt-20">
+      <div className="flex bg-gray-900 text-white h-screen pt-20 pb-2">
         <div className="grow self-center">
           <h1 class="text-5xl font-extrabold dark:text-gray-900">
             Stress-free names, powered by denam
@@ -127,7 +127,7 @@ export default function Home() {
           </div>
           <h3 class="text-3xl font-bold dark:text-white">
             Connecting your{" "}
-            <mark class="px-2 text-gray-900 bg-white rounded dark:bg-gray-900 dark:text-white">
+            <mark class="px-1 text-gray-900 bg-white rounded dark:bg-gray-900 dark:text-white">
               web3 name
             </mark>
           </h3>
