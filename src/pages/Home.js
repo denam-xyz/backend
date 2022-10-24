@@ -96,44 +96,41 @@ export default function Home() {
           <p class="mb-6 mt-6 text-lg font-extrabold  font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400">
             Put the power of denam behind your decentralized identity
           </p>
-          <div class="grid grid-cols-3 gap-y-4 gap-x-1 p-20">
-            <div className="p-20">
+          <div class="flex justify-evenly m-20">
+            <div className="p-8">
               <h3 class="text-3xl font-bold dark:text-white mb-2">
-                Simple Search
+                Simplified Search
               </h3>
               <p class="mb-3 text-lg font-light text-gray-400 md:text-xl dark:text-gray-400">
-                A Web3 domain uniquely represents your on-chain indentity. We
+                A Web3 domain uniquely represents your on-chain identity. We
                 make it easy.
               </p>
             </div>
-            <div class="p-20">
+            <div class="p-8">
               <h3 class="text-3xl font-bold dark:text-white mb-2">
-                Multichain-Enabled
+                Multichain Enabled
               </h3>
               <p class="mb-3 text-lg font-light text-gray-400 md:text-xl dark:text-gray-400">
-                Whether that be Ethereum, Polygon, or Avalanche. We got your
+                Whether that be Ethereum, Aptos, or Avalanche. We got your
                 covered.
               </p>
             </div>
-            <div class="p-20">
+            <div class="p-8">
               <h3 class="text-3xl font-bold dark:text-white mb-2">
-                Empowering the Ecosystem
+                Ecosystem Empowering
               </h3>
               <p class="mb-3 text-lg font-light text-gray-400 md:text-xl dark:text-gray-400">
                 With 100+ of blockchains, join the ever-growing domain
                 ecosystem.
               </p>
             </div>
-            <div class="col-start-1 col-end-7 mt-16">
-              <h3 class="text-3xl font-bold dark:text-white">
-                We believe in{" "}
-                <span class="underline underline-offset-3 decoration-4 decoration-blue-400 dark:decoration-blue-600">
-                  empowering
-                </span>{" "}
-                users with their web3 identitiy
-              </h3>
-            </div>
           </div>
+          <h3 class="text-3xl font-bold dark:text-white">
+            Connecting your{" "}
+            <mark class="px-2 text-gray-900 bg-white rounded dark:bg-gray-900 dark:text-white">
+              web3 name
+            </mark>
+          </h3>
         </div>
       </div>
       {/* <div className="h-screen">
