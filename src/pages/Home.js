@@ -71,24 +71,23 @@ export default function Home() {
           </h4>
         </div>
       </div>
-      <div className="flex bg-gray-900 text-white h-screen">
-        <div className="grow space-y-20 self-center">
+      <div className="flex bg-gray-900 text-white h-screen pt-20">
+        <div className="grow self-center">
           <h1 class="text-5xl font-extrabold dark:text-gray-900">
             Stress-free names, powered by denam
           </h1>
-          <h3 class="text-3xl font-extrabold ml-2 font-semibold text-gray-500 dark:text-gray-400">
+          <p class="mb-6 mt-6 text-lg font-extrabold  font-normal text-gray-500 lg:text-xl sm:px-16 xl:px-48 dark:text-gray-400">
             Put the power of denam behind your decentralized identity.
-          </h3>
-          <p></p>
-          <div class="grid grid-cols-3 gap-y-4 gap-x-1">
-            <div className="">
+          </p>
+          <div class="grid grid-cols-3 gap-y-4 gap-x-1 p-20">
+            <div className="p-20">
               <h3 class="text-3xl font-bold dark:text-white">Simple Search</h3>
               <p class="mb-3 text-lg font-light text-gray-400 md:text-xl dark:text-gray-400">
                 A Web3 domain uniquely represents your on-chain indentity. We
                 make it easy.
               </p>
             </div>
-            <div class="">
+            <div class="p-20">
               <h3 class="text-3xl font-bold dark:text-white">
                 Multichain-Enabled
               </h3>
@@ -97,7 +96,7 @@ export default function Home() {
                 covered.
               </p>
             </div>
-            <div class="">
+            <div class="p-20">
               <h3 class="text-3xl font-bold dark:text-white">
                 Empowering the Ecosystem
               </h3>
@@ -109,10 +108,11 @@ export default function Home() {
             <div class="col-start-1 col-end-7 mt-14">
               <h3 class="text-3xl font-bold dark:text-white">
                 Searching for your new domain shouldn't incur additional
-                charges.<br className="mt-5"></br>
+                charges.<br className="mt-5"></br>We believe in{" "}
                 <span class="underline underline-offset-3 decoration-4 decoration-blue-400 dark:decoration-blue-600">
-                  We believe in empowering users with their web3 identitiy.
-                </span>
+                  empowering users
+                </span>{" "}
+                with their web3 identitiy.
               </h3>
             </div>
           </div>
