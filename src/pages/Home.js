@@ -18,7 +18,7 @@ export default function Home() {
   return (
     <div className="align-middle text-center text-banner -mt-12">
       <div className="h-screen flex ">
-        <div className="grow space-y-10 self-center">
+        <div className="grow space-y-12 self-center">
           <h1 className="mb-4 text-4xl font-extrabold tracking-tight leading-none text-gray-900 md:text-5xl lg:text-6xl dark:text-white">
             Discover your web3 identity
           </h1>
@@ -72,7 +72,7 @@ export default function Home() {
               </button>
             </div>
           </form>
-          <h4 class="text-2xl font-bold dark:text-white pt-20">
+          <h4 class="text-2xl font-bold dark:text-white pt-20 pb-20">
             Search for decentralized names with our verified integrations
           </h4>
           <div class="flex justify-evenly relative">
