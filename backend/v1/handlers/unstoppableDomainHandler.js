@@ -24,8 +24,13 @@ unstoppableDomainsHandler.get = function (req, res) {
 
 unstoppableDomainsHandler.create = function (req, res) {
   var unstoppableDomain = new UnstoppableDomain();
-  unstoppableDomain.set(req.body);
-  console.log(req.body, "Body in user submit handler");
+  let dummyDataUserInput = {
+    name: "HEEY ",
+    url: "denam.com",
+    description: "description goes here",
+  };
+  unstoppableDomain.set(dummyDataUserInput);
+  console.log(dummyDataUserInput, "Body in user submit handler");
   unstoppableDomain
     .create()
     .then((resultObj) => {

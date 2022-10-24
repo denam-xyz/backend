@@ -13,15 +13,16 @@ UnstoppableDomains.prototype.set = function setUnstoppableDomain(
 ) {
   if (typeof unstoppableDomain !== "undefined") {
     this.description = unstoppableDomain.description;
-    this.geopos = unstoppableDomain.geopos;
-    this.id = unstoppableDomain.id;
+    this.name = unstoppableDomain.name;
+    this.url = unstoppableDomain.url;
   }
 };
 
 /* Section 3: CRUD */
 
-UnstoppableDomains.prototype.create = function createUnstoppableDomain() {
+UnstoppableDomains.prototype.create = function createUnstoppableDomain(obj) {
   var unstoppableDomain = this;
+  console.log(unstoppableDomain, obj, "hey there sister");
   var promise = new Promise((resolve, reject) => {
     MySQL.pool.getConnection(function (err, db) {
       db.execute(
