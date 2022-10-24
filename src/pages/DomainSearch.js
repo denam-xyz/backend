@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from "react";
 import Table from "../components/Table";
-
+import { useLocation } from "react-router-dom";
 import "../index.css";
 
-export default function DomainSearch() {
+export default function DomainSearch({ route }) {
+  let location = useLocation();
+  const { searchInput } = location.state;
+
   return (
     <div className="align-middle text-center text-banner">
       <div className="h-screen flex ">
@@ -34,6 +37,7 @@ export default function DomainSearch() {
                 </svg>
               </div>
               <input
+                value={searchInput}
                 type="search"
                 id="search"
                 class="block p-4 pl-10 w-full text-sm text-gray-900 bg-gray-50 rounded-lg border border-gray-300 focus:ring-blue-500 focus:border-blue-500 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
