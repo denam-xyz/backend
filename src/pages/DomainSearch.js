@@ -9,15 +9,11 @@ export default function DomainSearch({ route }) {
   let location = useLocation();
   const { searchInput } = location.state;
   const [loading, setLoading] = useState();
-
   const [searchTextInput, setSearchTextInput] = useState();
   const [hasAddressAssociatedWithENS, setHasAddressAssociatedWithENS] =
     useState();
 
-  //const [provider, setProvider] = useState();
-
   const web3 = new Web3(Web3.givenProvider || "http://localhost:8545");
-  // const network = await web3.eth.net.getNetworkType();
 
   useEffect(() => {
     async function fetchData() {
@@ -26,7 +22,7 @@ export default function DomainSearch({ route }) {
       checkIfENSIsOwned(searchInput);
     }
     fetchData();
-  }, []);
+  }, [searchInput]);
 
   const renderLoadingSpinner = () => {
     return (
@@ -83,6 +79,7 @@ export default function DomainSearch({ route }) {
                 {hasAddressAssociatedWithENS ? (
                   <a
                     target="_blank"
+                    rel="noreferrer"
                     class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
                     href={`https://app.ens.domains/name/${searchTextInput}/details`}
                   >
