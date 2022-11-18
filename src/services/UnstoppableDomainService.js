@@ -34,5 +34,12 @@ const UnstoppableDomainService = {
       );
     }
   },
+
+  searchUnstoppableDomain: function (search, session) {
+    return NetworkService.getResourceWithAuth(
+      "v1/unstoppableDomains/search/" + search,
+      session
+    );
+  },
 };
 export default UnstoppableDomainService;

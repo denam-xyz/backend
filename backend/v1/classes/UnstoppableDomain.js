@@ -3,6 +3,8 @@
 var MySQL = require("../../MySQL");
 var ApiError = require("./ApiError");
 module.exports = UnstoppableDomains;
+var config = require("../../config.json");
+const axios = require("axios");
 
 function UnstoppableDomains(unstoppableDomain) {
   this.set(unstoppableDomain);
@@ -16,6 +18,35 @@ UnstoppableDomains.prototype.set = function setUnstoppableDomain(
     this.name = unstoppableDomain.name;
     this.url = unstoppableDomain.url;
   }
+};
+
+// Section 1: Unstoppable Domains API
+UnstoppableDomains.prototype.searchDomain = async function searchDomain(
+  searchText
+) {
+  console.log(searchText, "hey there sister");
+  var promise = new Promise(async (resolve, reject) => {
+    let searchText = "brad.crypto";
+
+    const configAxios = {
+      "Content-Type": "application/json",
+      headers: {
+        Authorization: `Bearer ${config.unstoppable_domains.API_KEY}`,
+      },
+    };
+    let detail = { hej: "haj" };
+    /*   let detail = await axios.get(
+      `https://resolve.unstoppabledomains.com/domains/${searchText}`,
+      configAxios
+    ); */
+    console.log(detail, "UNSTOPPABLE DOMAIN DATA");
+    if (detail) {
+      resolve(detail);
+    } else {
+      reject();
+    }
+  });
+  return promise;
 };
 
 /* Section 3: CRUD */

@@ -18,4 +18,12 @@ endpoints.getUnstoppableDomains = {
   description: "Get all unstoppableDomains",
 };
 
+endpoints.searchUnstoppableDomains = {
+  url: "/v1/unstoppableDomains/search/:search",
+  method: "get",
+  middleware: [],
+  handler: unstoppableDomainHandler.searchUnstoppableDomain,
+  description: "Search for unstoppableDomains",
+};
+
 module.exports = endpoints;
