@@ -6,6 +6,13 @@ module.exports = UnstoppableDomains;
 var config = require("../../config.json");
 const axios = require("axios");
 
+const axiosConfig = {
+  "Content-Type": "application/json",
+  headers: {
+    Authorization: `Bearer ${config.unstoppable_domains.API_KEY}`,
+  },
+};
+
 function UnstoppableDomains(unstoppableDomain) {
   this.set(unstoppableDomain);
 }
@@ -28,22 +35,17 @@ UnstoppableDomains.prototype.searchDomain = async function searchDomain(
   var promise = new Promise(async (resolve, reject) => {
     let searchText = "brad.crypto";
 
-    const configAxios = {
-      "Content-Type": "application/json",
-      headers: {
-        Authorization: `Bearer ${config.unstoppable_domains.API_KEY}`,
-      },
-    };
-    let detail = { hej: "haj" };
-    /*   let detail = await axios.get(
-      `https://resolve.unstoppabledomains.com/domains/${searchText}`,
-      configAxios
-    ); */
-    console.log(detail, "UNSTOPPABLE DOMAIN DATA");
-    if (detail) {
-      resolve(detail);
-    } else {
-      reject();
+    try {
+      let domainData = await axios.get(
+        `https://resolve.unstoppabledomains.com/domains/${searchText}`,
+        axiosConfig
+      );
+      if (domainData) {
+        resolve(domainData);
+      }
+    } catch (error) {
+      console.error(error);
+      reject(error);
     }
   });
   return promise;
