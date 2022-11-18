@@ -13,9 +13,8 @@ unstoppableDomainsHandler.searchUnstoppableDomain = function (req, res) {
     .searchDomain(searchText)
     .then((resultObj) => {
       if (resultObj) {
-        res.status(200).send(resultObj);
+        res.status(200).send(resultObj.data);
       } else {
-        console.log("ERRÖÖÖ");
         res.status(404).send(new ApiError(404, "Not found"));
       }
     })

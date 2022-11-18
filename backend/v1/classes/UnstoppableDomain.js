@@ -8,9 +8,6 @@ const axios = require("axios");
 
 const axiosConfig = {
   "Content-Type": "application/json",
-  headers: {
-    Authorization: `Bearer ${config.unstoppable_domains.API_KEY}`,
-  },
 };
 
 function UnstoppableDomains(unstoppableDomain) {
@@ -31,20 +28,32 @@ UnstoppableDomains.prototype.set = function setUnstoppableDomain(
 UnstoppableDomains.prototype.searchDomain = async function searchDomain(
   searchText
 ) {
-  console.log(searchText, "hey there sister");
   var promise = new Promise(async (resolve, reject) => {
-    let searchText = "brad.crypto";
-
     try {
-      let domainData = await axios.get(
-        `https://resolve.unstoppabledomains.com/domains/${searchText}`,
-        axiosConfig
+      const query = new URLSearchParams({
+        search: "fancyfox123.crypto,firstname,domainsforfree1.888",
+      }).toString();
+
+      //LOOP THROUGH THE LIST OF LIVE SUPPORTED TLDS
+      //https://docs.unstoppabledomains.com/openapi/resolution/#operation/StatusController.listSupportedTlds
+
+      const resellerId = "udtesting";
+      console.log(searchText, "SearchText");
+      const domainData = await axios.get(
+        `https://unstoppabledomains.com/api/v2/resellers/${resellerId}/domains?${query}`,
+
+        {
+          method: "GET",
+          headers: {
+            Authorization: `Bearer ${config.unstoppable_domains.API_KEY}`,
+          },
+        }
       );
       if (domainData) {
         resolve(domainData);
       }
     } catch (error) {
-      console.error(error);
+      console.log(error, "ERRÖ");
       reject(error);
     }
   });
