@@ -4,8 +4,5 @@
     "user": "root",
     "database": "denam",
     "password": "YOUR_DB_PASSWORD"
-  },
-  "unstoppable_domains": {
-    "API_KEY": "YOUR_API_KEY"
   }
 }
