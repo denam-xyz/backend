@@ -18,14 +18,22 @@ const Table = ({ tableData }) => {
               {domainName[1]}
             </th>
             <td class="py-4 pr-6">Ethereum</td>
-            <td class="py-4 px-6">$29</td>
+            <td class="py-4 px-6">
+              {Object.keys(item.records).length > 0 ? "NO" : "YES"}
+            </td>
             <td class="">
-              <a
-                href="#"
-                class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-              >
-                Buy
-              </a>
+              {Object.keys(item.records).length > 0 ? (
+                <td class="py-4 pr-6">NOT AVAILABLE</td>
+              ) : (
+                <a
+                  href={`https://unstoppabledomains.com/search?searchTerm=${item.domain}&searchRef=home&tab=relevant`}
+                  class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+                  target="_blank"
+                  rel="noreferrer"
+                >
+                  BUY
+                </a>
+              )}
             </td>
           </tr>
         );
@@ -59,7 +67,7 @@ const Table = ({ tableData }) => {
               Network
             </th>
             <th scope="col" class="py-3 px-6">
-              Price
+              Available
             </th>
             <th scope="col" class="">
               Action

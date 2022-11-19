@@ -9,13 +9,15 @@ const SearchSubmit = ({ home, initialValue }) => {
   const [domainSearchData, setDomainSearchData] = useState([]);
 
   const handleSearchClick = async () => {
+    console.log("HANDLE SEARCH CLICK");
     let data = await fetchSearchData();
-    if (home && data) {
+    if (data) {
       navigate("/domain-search", {
         state: { searchInput: searchInput, tableData: data },
       });
     }
   };
+  console.log(domainSearchData, "DOMAIN SEARCH DATA");
   const fetchSearchData = async () => {
     try {
       let responseData = await UnstoppableDomainService.searchUnstoppableDomain(
