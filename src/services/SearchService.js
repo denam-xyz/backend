@@ -1,6 +1,15 @@
 import NetworkService from "./NetworkService";
 
-const UnstoppableDomainService = {
+const SearchService = {
+  getSearch: function (search, session) {
+    return NetworkService.getResourceWithAuth(
+      "v1/unstoppableDomains/search/" + search,
+      session
+    );
+  },
+
+  /*  
+  BELOW CODE IS CURRENTLY NOT BEING USED BUT MIGHT BE NEEDED FOR FUTURE REFERENCE
   createUnstoppableDomain: function (obj, session) {
     return NetworkService.postResourceWithAuth(
       "v1/unstoppableDomain",
@@ -33,6 +42,6 @@ const UnstoppableDomainService = {
         session
       );
     }
-  },
+  }, */
 };
-export default UnstoppableDomainService;
+export default SearchService;

@@ -45,9 +45,7 @@ UnstoppableDomains.prototype.getUnstoppableDomainData =
           `https://resolve.unstoppabledomains.com/records?domains=${searchWithoutTLD}.crypto&domains=${searchWithoutTLD}.nft&domains=${searchWithoutTLD}.x&domains=${searchWithoutTLD}.wallet&domains=${searchWithoutTLD}.bitcoin&domains=${searchWithoutTLD}.dao&domains=${searchWithoutTLD}.888&domains=${searchWithoutTLD}.blockchain&domains=${searchWithoutTLD}.zil&key=crypto.ETH.address`,
           apiHeader
         );
-        //Call ENS and push into the UD array
-        let ENSdomain = await this.getListOfTLDs(searchWithoutTLD);
-        domainData.data.data.push(ENSdomain);
+
         if (domainData) {
           resolve(domainData);
         }

@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useNavigate } from "react-router-dom";
-import UnstoppableDomainService from "../services/UnstoppableDomainService";
+import SearchService from "../services/SearchService";
 
 const SearchSubmit = ({ home, initialValue }) => {
   const navigate = useNavigate();
@@ -17,10 +17,7 @@ const SearchSubmit = ({ home, initialValue }) => {
   };
   const fetchSearchData = async () => {
     try {
-      let responseData = await UnstoppableDomainService.searchUnstoppableDomain(
-        searchInput,
-        0
-      );
+      let responseData = await SearchService.getSearch(searchInput, 0);
       setDomainSearchData(responseData.data);
       return responseData.data;
     } catch (err) {

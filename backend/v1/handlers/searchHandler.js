@@ -1,7 +1,6 @@
 var MySQL = require("../../MySQL");
 var ApiError = require("../classes/ApiError");
 const Search = require("../classes/Search");
-const UnstoppableDomain = require("../classes/UnstoppableDomain");
 
 var searchHandler = {};
 
