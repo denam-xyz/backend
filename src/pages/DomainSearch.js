@@ -17,8 +17,6 @@ export default function DomainSearch({ route }) {
   const [hasAddressAssociatedWithENS, setHasAddressAssociatedWithENS] =
     useState();
 
-  console.log(searchInput, "WHAT IS SEARCH INPUT???", tableData, "TABLEDATA??");
-
   //const web3 = new Web3(Web3.givenProvider || "http://localhost:8545");
 
   useEffect(() => {
@@ -99,6 +97,7 @@ export default function DomainSearch({ route }) {
       <div className="h-screen flex ">
         <div className="grow space-y-10 self-start">
           <SearchSubmit initialValue={searchInput} />
+          <Table tableData={tableData} />
           {/* {renderENSLookup()} */}
         </div>
       </div>

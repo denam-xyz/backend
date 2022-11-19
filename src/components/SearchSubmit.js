@@ -8,24 +8,14 @@ const SearchSubmit = ({ home, initialValue }) => {
   const [searchInput, setSearchInput] = useState(initialValue);
   const [domainSearchData, setDomainSearchData] = useState([]);
 
-  console.log(home, "wats props in Search Submit?");
-
   const handleSearchClick = async () => {
     let data = await fetchSearchData();
-    if (home) {
+    if (home && data) {
       navigate("/domain-search", {
         state: { searchInput: searchInput, tableData: data },
       });
-    } else {
-      if (searchInput) {
-        fetchSearchData();
-      } else {
-        //TODO: set error text
-        console.log("You need to search a domain");
-      }
     }
   };
-
   const fetchSearchData = async () => {
     try {
       let responseData = await UnstoppableDomainService.searchUnstoppableDomain(
@@ -33,7 +23,6 @@ const SearchSubmit = ({ home, initialValue }) => {
         0
       );
       setDomainSearchData(responseData.data);
-
       return responseData.data;
     } catch (err) {
       console.log(err, "error occurred getting searchDomain()");
@@ -92,7 +81,6 @@ const SearchSubmit = ({ home, initialValue }) => {
           </button>
         </div>
       </div>
-      {home ? null : <Table />}
     </div>
   );
 };

@@ -1,6 +1,45 @@
 import React from "react";
 
-const Table = () => {
+const Table = ({ tableData }) => {
+  console.log(tableData, "what is tabledata+");
+  const renderRows = () => {
+    let rows = [];
+    if (tableData && tableData.length > 0) {
+      rows = tableData.map((item, index) => {
+        console.log(item.domain.split("."), "ITEM.DOMAIN");
+        let domainName = item.domain.split(".");
+        return (
+          <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+            <th
+              scope="row"
+              class="py-4 pl-6 text-gray-900 whitespace-nowrap dark:text-white"
+            >
+              <span className="font-medium">{domainName[0]}</span>.
+              {domainName[1]}
+            </th>
+            <td class="py-4 pr-6">Ethereum</td>
+            <td class="py-4 px-6">$29</td>
+            <td class="">
+              <a
+                href="#"
+                class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
+              >
+                Buy
+              </a>
+            </td>
+          </tr>
+        );
+      });
+    } else {
+      return (
+        <tr>
+          <td colSpan="3">No data available</td>
+        </tr>
+      );
+    }
+    return rows;
+  };
+
   return (
     //   IF NO DOMAIN HAS BEEN SEARCHED //
     //   <div className="grow space-y-10 self-center">
@@ -27,98 +66,7 @@ const Table = () => {
             </th>
           </tr>
         </thead>
-        <tbody>
-          <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-            <th
-              scope="row"
-              class="py-4 pl-6 text-gray-900 whitespace-nowrap dark:text-white"
-            >
-              <span className="font-medium">hello</span>.eth
-            </th>
-            <td class="py-4 pr-6">Ethereum</td>
-            <td class="py-4 px-6">$29</td>
-            <td class="">
-              <a
-                href="#"
-                class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-              >
-                Buy
-              </a>
-            </td>
-          </tr>
-          <tr class="bg-gray-50 border-b dark:bg-gray-800 dark:border-gray-700">
-            <th
-              scope="row"
-              class="py-4 pl-6 text-gray-900 whitespace-nowrap dark:text-white"
-            >
-              <span className="font-medium">hello</span>.bnb
-            </th>
-            <td class="py-4 pr-6">Binance Smart Chain</td>
-            <td class="py-4 px-6">$19</td>
-            <td class="">
-              <a
-                href="#"
-                class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-              >
-                Buy
-              </a>
-            </td>
-          </tr>
-          <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
-            <th
-              scope="row"
-              class="py-4 pl-6 text-gray-900 whitespace-nowrap dark:text-white"
-            >
-              <span className="font-medium">hello</span>.near
-            </th>
-            <td class="py-4 pr-6">Near</td>
-            <td class="py-4 px-6">Free</td>
-            <td class="">
-              <a
-                href="#"
-                class="font-medium text-gray-300 dark:text-white hover:cursor-not-allowed"
-              >
-                Unavailable
-              </a>
-            </td>
-          </tr>
-          <tr class="bg-gray-50 border-b dark:bg-gray-800 dark:border-gray-700">
-            <th
-              scope="row"
-              class="py-4 pl-6 text-gray-900 whitespace-nowrap dark:text-white"
-            >
-              <span className="font-medium">hello</span>.sol
-            </th>
-            <td class="py-4 pr-6">Solana</td>
-            <td class="py-4 px-6">$79</td>
-            <td class="">
-              <a
-                href="#"
-                class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-              >
-                Buy
-              </a>
-            </td>
-          </tr>
-          <tr>
-            <th
-              scope="row"
-              class="py-4 pl-6 text-gray-900 whitespace-nowrap dark:text-white"
-            >
-              <span className="font-medium">hello</span>.dot
-            </th>
-            <td class="py-4 pr-6">Polkadot</td>
-            <td class="py-4 px-6">$13</td>
-            <td class="">
-              <a
-                href="#"
-                class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
-              >
-                Buy
-              </a>
-            </td>
-          </tr>
-        </tbody>
+        <tbody>{renderRows()}</tbody>
       </table>
     </div>
   );
