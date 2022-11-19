@@ -46,25 +46,8 @@ UnstoppableDomains.prototype.searchDomain = async function searchDomain(
         resolve(domainData);
       }
     } catch (error) {
-      console.log(error, "ERRÖ");
+      console.log(error, "Error occurred fetching: searchDomain()");
       reject(error);
-    }
-  });
-  return promise;
-};
-
-/* Additional Helpers */
-
-UnstoppableDomains.prototype.getListOfTLDs = async function getListOfTLDs() {
-  var promise = new Promise(async (resolve, reject) => {
-    const supportedTLDs = await axios.get(
-      `https://docs.unstoppabledomains.com/openapi/resolution/#operation/StatusController.listSupportedTlds`,
-      apiHeader
-    );
-    if (supportedTLDs) {
-      resolve(supportedTLDs);
-    } else {
-      reject("Could not get the supported TLDs");
     }
   });
   return promise;
@@ -180,6 +163,23 @@ UnstoppableDomains.prototype.delete = function deleteUnstoppableDomain() {
       });
     } else {
       reject(new ApiError(400, "Missing unstoppable domain delete id"));
+    }
+  });
+  return promise;
+};
+
+/* Additional Helpers */
+
+UnstoppableDomains.prototype.getListOfTLDs = async function getListOfTLDs() {
+  var promise = new Promise(async (resolve, reject) => {
+    const supportedTLDs = await axios.get(
+      `https://docs.unstoppabledomains.com/openapi/resolution/#operation/StatusController.listSupportedTlds`,
+      apiHeader
+    );
+    if (supportedTLDs) {
+      resolve(supportedTLDs);
+    } else {
+      reject("Could not get the supported TLDs");
     }
   });
   return promise;
