@@ -2,9 +2,7 @@ import React, { useState, useEffect } from "react";
 import Table from "../components/Table";
 import { useLocation } from "react-router-dom";
 import "../index.css";
-import { ethers } from "ethers";
-import Web3 from "web3";
-import UnstoppableDomainService from "../services/UnstoppableDomainService";
+
 import SearchSubmit from "../components/SearchSubmit";
 
 //TODO MAKE SEARCH A COMPONENT
@@ -14,27 +12,13 @@ export default function DomainSearch({ route }) {
   const { searchInput, tableData } = location.state;
   const [loading, setLoading] = useState();
   const [searchTextInput, setSearchTextInput] = useState();
-  const [hasAddressAssociatedWithENS, setHasAddressAssociatedWithENS] =
-    useState();
-
-  //const web3 = new Web3(Web3.givenProvider || "http://localhost:8545");
 
   useEffect(() => {
     async function fetchData() {
       setSearchTextInput(searchInput);
-      //await window.ethereum.enable();
-      //checkIfENSIsOwned(searchInput);
     }
     fetchData();
   }, [searchInput]);
-
-  /*const checkIfENSIsOwned = async (ensString) => {
-    setLoading(true);
-    const provider = new ethers.providers.Web3Provider(window.ethereum);
-    let hasAddressAssociatedWithENS = await provider.resolveName(ensString);
-    setHasAddressAssociatedWithENS(hasAddressAssociatedWithENS);
-    setLoading(false);
-  }; */
 
   const renderLoadingSpinner = () => {
     return (
@@ -60,45 +44,12 @@ export default function DomainSearch({ route }) {
     );
   };
 
-  /*  const renderENSLookup = () => {
-    return (
-      <>
-        <div>
-          Does {searchTextInput} have a corresponding owner address?{" "}
-          <div>
-            {" "}
-            {loading ? (
-              renderLoadingSpinner()
-            ) : (
-              <div>
-                {hasAddressAssociatedWithENS
-                  ? hasAddressAssociatedWithENS.toString()
-                  : null}
-                <br></br> <br></br>
-                {hasAddressAssociatedWithENS ? (
-                  <a
-                    target="_blank"
-                    rel="noreferrer"
-                    class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-4 py-2 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
-                    href={`https://app.ens.domains/name/${searchTextInput}/details`}
-                  >
-                    LINK TO ADDRESS
-                  </a>
-                ) : null}
-              </div>
-            )}
-          </div>
-        </div>
-      </>
-    );
-  }; */
   return (
     <div className="align-middle text-center text-banner">
       <div className="h-screen flex ">
         <div className="grow space-y-10 self-start">
           <SearchSubmit initialValue={searchInput} />
           <Table tableData={tableData} />
-          {/* {renderENSLookup()} */}
         </div>
       </div>
     </div>

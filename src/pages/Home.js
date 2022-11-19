@@ -1,5 +1,4 @@
-import React, { useState, useEffect } from "react";
-import { Routes, Route, useNavigate } from "react-router-dom";
+import React from "react";
 
 import space_id from "../assets/space_id.png";
 import unstoppable_domains from "../assets/unstoppable_domains.png";

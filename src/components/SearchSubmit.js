@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { Routes, Route, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import UnstoppableDomainService from "../services/UnstoppableDomainService";
-import Table from "./Table";
 
 const SearchSubmit = ({ home, initialValue }) => {
   const navigate = useNavigate();
@@ -9,7 +8,6 @@ const SearchSubmit = ({ home, initialValue }) => {
   const [domainSearchData, setDomainSearchData] = useState([]);
 
   const handleSearchClick = async () => {
-    console.log("HANDLE SEARCH CLICK");
     let data = await fetchSearchData();
     if (data) {
       navigate("/domain-search", {
@@ -17,7 +15,6 @@ const SearchSubmit = ({ home, initialValue }) => {
       });
     }
   };
-  console.log(domainSearchData, "DOMAIN SEARCH DATA");
   const fetchSearchData = async () => {
     try {
       let responseData = await UnstoppableDomainService.searchUnstoppableDomain(
@@ -34,7 +31,6 @@ const SearchSubmit = ({ home, initialValue }) => {
 
   const handleSearchChange = async (e) => {
     setSearchInput(e.target.value);
-    //checkIfENSIsOwned(e.target.value);
   };
 
   return (

@@ -29,6 +29,8 @@ UnstoppableDomains.prototype.set = function setUnstoppableDomain(
 };
 
 // Section 1: Unstoppable Domains API
+//TODO: Refactor this class to be a 'Search' class instead and make a seperate class for ENS + Unstoppable domain api/calls
+//The 'Search' class will be using the child classes UnstoppableDomains + ENS
 UnstoppableDomains.prototype.searchDomain = async function searchDomain(
   searchText
 ) {
@@ -44,12 +46,9 @@ UnstoppableDomains.prototype.searchDomain = async function searchDomain(
         `https://resolve.unstoppabledomains.com/records?domains=${searchWithoutTLD}.crypto&domains=${searchWithoutTLD}.nft&domains=${searchWithoutTLD}.x&domains=${searchWithoutTLD}.wallet&domains=${searchWithoutTLD}.bitcoin&domains=${searchWithoutTLD}.dao&domains=${searchWithoutTLD}.888&domains=${searchWithoutTLD}.blockchain&domains=${searchWithoutTLD}.zil&key=crypto.ETH.address`,
         apiHeader
       );
-      //TODO: add ENS call here
-
+      //Call ENS and push into the UD array
       let ENSdomain = await this.getListOfTLDs(searchWithoutTLD);
-      console.log(ENSdomain, "ENS DOMAIN RESOLVED");
       domainData.data.data.push(ENSdomain);
-      console.log(domainData.data.data, "AFTER PUSH ARR");
       if (domainData) {
         resolve(domainData);
       }
@@ -65,7 +64,6 @@ UnstoppableDomains.prototype.searchDomain = async function searchDomain(
 
 UnstoppableDomains.prototype.create = function createUnstoppableDomain(obj) {
   var unstoppableDomain = this;
-  console.log(unstoppableDomain, obj, "hey there sister");
   var promise = new Promise((resolve, reject) => {
     MySQL.pool.getConnection(function (err, db) {
       db.execute(
@@ -145,10 +143,10 @@ UnstoppableDomains.prototype.update = function updateUnstoppableDomain(
 };
 
 UnstoppableDomains.prototype.delete = function deleteUnstoppableDomain() {
-  process.on("unhandledRejection", (reason, p) => {
+  /*   process.on("unhandledRejection", (reason, p) => {
     console.log("Unhandled Rejection at: Promise", p, "reason:", reason);
     // application specific logging, throwing an error, or other logic here
-  });
+  }); */
   var unstoppableDomain = this;
   var promise = new Promise((resolve, reject) => {
     if (unstoppableDomain.id) {
