@@ -1,7 +1,7 @@
 /* Section 2: definition */
 module.exports = Search;
 const UnstoppableDomains = require("./UnstoppableDomain");
-const EnsDomains = require("./ENS");
+const EnsDomains = require("./EnsDomains");
 
 function Search(unstoppableDomain) {
   this.set(unstoppableDomain);
