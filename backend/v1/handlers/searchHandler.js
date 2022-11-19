@@ -1,4 +1,3 @@
-var MySQL = require("../../MySQL");
 var ApiError = require("../classes/ApiError");
 const Search = require("../classes/Search");
 
@@ -13,7 +12,7 @@ searchHandler.search = function (req, res) {
     .searchDomain(searchText)
     .then((resultObj) => {
       if (resultObj) {
-        res.status(200).send(resultObj.data);
+        res.status(200).send(resultObj);
       } else {
         res.status(404).send(new ApiError(404, "Not found"));
       }

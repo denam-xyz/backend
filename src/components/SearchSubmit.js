@@ -9,6 +9,7 @@ const SearchSubmit = ({ home, initialValue }) => {
 
   const handleSearchClick = async () => {
     let data = await fetchSearchData();
+    console.log(data, "What is data?");
     if (data) {
       navigate("/domain-search", {
         state: { searchInput: searchInput, tableData: data },
