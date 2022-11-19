@@ -5,9 +5,11 @@ var ApiError = require("./ApiError");
 module.exports = UnstoppableDomains;
 var config = require("../../config.json");
 const axios = require("axios");
-
-const axiosConfig = {
-  "Content-Type": "application/json",
+const apiHeader = {
+  method: "GET",
+  headers: {
+    Authorization: `Bearer ${config.unstoppable_domains.API_KEY}`,
+  },
 };
 
 function UnstoppableDomains(unstoppableDomain) {
@@ -30,24 +32,15 @@ UnstoppableDomains.prototype.searchDomain = async function searchDomain(
 ) {
   var promise = new Promise(async (resolve, reject) => {
     try {
-      const query = new URLSearchParams({
-        search: "fancyfox123.crypto,firstname,domainsforfree1.888",
-      }).toString();
-
-      //LOOP THROUGH THE LIST OF LIVE SUPPORTED TLDS
+      //TODO: LOOP THROUGH THE LIST OF LIVE SUPPORTED TLDS but gives back HTML response so need to parse it
       //https://docs.unstoppabledomains.com/openapi/resolution/#operation/StatusController.listSupportedTlds
 
-      const resellerId = "udtesting";
-      console.log(searchText, "SearchText");
+      //If user specified a TLD in his search, remove it and just search the name
+      const searchWithoutTLD = searchText.split(".")[0];
+      //TODO do not hardcode the TLDs, currently support:  .crypto .nft .x .wallet .bitcoin .dao .888 .zil .blockchain
       const domainData = await axios.get(
-        `https://unstoppabledomains.com/api/v2/resellers/${resellerId}/domains?${query}`,
-
-        {
-          method: "GET",
-          headers: {
-            Authorization: `Bearer ${config.unstoppable_domains.API_KEY}`,
-          },
-        }
+        `https://resolve.unstoppabledomains.com/records?domains=${searchWithoutTLD}.crypto&domains=${searchWithoutTLD}.nft&domains=${searchWithoutTLD}.x&domains=${searchWithoutTLD}.wallet&domains=${searchWithoutTLD}.bitcoin&domains=${searchWithoutTLD}.dao&domains=${searchWithoutTLD}.888&domains=${searchWithoutTLD}.blockchain&domains=${searchWithoutTLD}.zil&key=crypto.ETH.address`,
+        apiHeader
       );
       if (domainData) {
         resolve(domainData);
@@ -55,6 +48,23 @@ UnstoppableDomains.prototype.searchDomain = async function searchDomain(
     } catch (error) {
       console.log(error, "ERRÖ");
       reject(error);
+    }
+  });
+  return promise;
+};
+
+/* Additional Helpers */
+
+UnstoppableDomains.prototype.getListOfTLDs = async function getListOfTLDs() {
+  var promise = new Promise(async (resolve, reject) => {
+    const supportedTLDs = await axios.get(
+      `https://docs.unstoppabledomains.com/openapi/resolution/#operation/StatusController.listSupportedTlds`,
+      apiHeader
+    );
+    if (supportedTLDs) {
+      resolve(supportedTLDs);
+    } else {
+      reject("Could not get the supported TLDs");
     }
   });
   return promise;
