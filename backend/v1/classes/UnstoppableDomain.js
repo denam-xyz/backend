@@ -5,6 +5,8 @@ var ApiError = require("./ApiError");
 module.exports = UnstoppableDomains;
 var config = require("../../config.json");
 const axios = require("axios");
+const ethers = require("ethers");
+
 const apiHeader = {
   method: "GET",
   headers: {
@@ -42,6 +44,12 @@ UnstoppableDomains.prototype.searchDomain = async function searchDomain(
         `https://resolve.unstoppabledomains.com/records?domains=${searchWithoutTLD}.crypto&domains=${searchWithoutTLD}.nft&domains=${searchWithoutTLD}.x&domains=${searchWithoutTLD}.wallet&domains=${searchWithoutTLD}.bitcoin&domains=${searchWithoutTLD}.dao&domains=${searchWithoutTLD}.888&domains=${searchWithoutTLD}.blockchain&domains=${searchWithoutTLD}.zil&key=crypto.ETH.address`,
         apiHeader
       );
+      //TODO: add ENS call here
+
+      let ENSdomain = await this.getListOfTLDs(searchWithoutTLD);
+      console.log(ENSdomain, "ENS DOMAIN RESOLVED");
+      domainData.data.data.push(ENSdomain);
+      console.log(domainData.data.data, "AFTER PUSH ARR");
       if (domainData) {
         resolve(domainData);
       }
@@ -181,6 +189,26 @@ UnstoppableDomains.prototype.getListOfTLDs = async function getListOfTLDs() {
     } else {
       reject("Could not get the supported TLDs");
     }
+  });
+  return promise;
+};
+
+UnstoppableDomains.prototype.getListOfTLDs = async function getListOfTLDs(
+  searchWithoutTLD
+) {
+  var promise = new Promise(async (resolve, reject) => {
+    const provider = new ethers.providers.JsonRpcProvider(
+      config.rpc_urls.mainnet_eth
+    );
+    let hasAddressAssociatedWithENS = await provider.resolveName(
+      `${searchWithoutTLD}.eth`
+    );
+    resolve({
+      domain: `${searchWithoutTLD}.eth`,
+      records: hasAddressAssociatedWithENS
+        ? { "crypto.ETH.address": hasAddressAssociatedWithENS }
+        : {},
+    });
   });
   return promise;
 };
