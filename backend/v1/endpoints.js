@@ -1,6 +1,6 @@
 var endpoints = {};
 
-var unstoppableDomainHandler = require("./handlers/unstoppableDomainHandler");
+var unstoppableDomainHandler = require("./handlers/searchHandler");
 
 endpoints.postUnstoppableDomain = {
   url: "/v1/unstoppableDomain/",

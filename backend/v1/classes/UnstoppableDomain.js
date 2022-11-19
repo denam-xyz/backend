@@ -31,36 +31,52 @@ UnstoppableDomains.prototype.set = function setUnstoppableDomain(
 // Section 1: Unstoppable Domains API
 //TODO: Refactor this class to be a 'Search' class instead and make a seperate class for ENS + Unstoppable domain api/calls
 //The 'Search' class will be using the child classes UnstoppableDomains + ENS
-UnstoppableDomains.prototype.searchDomain = async function searchDomain(
-  searchText
-) {
-  var promise = new Promise(async (resolve, reject) => {
-    try {
-      //TODO: LOOP THROUGH THE LIST OF LIVE SUPPORTED TLDS but gives back HTML response so need to parse it
-      //https://docs.unstoppabledomains.com/openapi/resolution/#operation/StatusController.listSupportedTlds
+UnstoppableDomains.prototype.getUnstoppableDomainData =
+  async function getUnstoppableDomainData(searchText) {
+    var promise = new Promise(async (resolve, reject) => {
+      try {
+        //TODO: LOOP THROUGH THE LIST OF LIVE SUPPORTED TLDS but gives back HTML response so need to parse it
+        //https://docs.unstoppabledomains.com/openapi/resolution/#operation/StatusController.listSupportedTlds
 
-      //If user specified a TLD in his search, remove it and just search the name
-      const searchWithoutTLD = searchText.split(".")[0];
-      //TODO do not hardcode the TLDs, currently support:  .crypto .nft .x .wallet .bitcoin .dao .888 .zil .blockchain
-      const domainData = await axios.get(
-        `https://resolve.unstoppabledomains.com/records?domains=${searchWithoutTLD}.crypto&domains=${searchWithoutTLD}.nft&domains=${searchWithoutTLD}.x&domains=${searchWithoutTLD}.wallet&domains=${searchWithoutTLD}.bitcoin&domains=${searchWithoutTLD}.dao&domains=${searchWithoutTLD}.888&domains=${searchWithoutTLD}.blockchain&domains=${searchWithoutTLD}.zil&key=crypto.ETH.address`,
-        apiHeader
-      );
-      //Call ENS and push into the UD array
-      let ENSdomain = await this.getListOfTLDs(searchWithoutTLD);
-      domainData.data.data.push(ENSdomain);
-      if (domainData) {
-        resolve(domainData);
+        //If user specified a TLD in his search, remove it and just search the name
+        const searchWithoutTLD = searchText.split(".")[0];
+        //TODO do not hardcode the TLDs, currently support:  .crypto .nft .x .wallet .bitcoin .dao .888 .zil .blockchain
+        const domainData = await axios.get(
+          `https://resolve.unstoppabledomains.com/records?domains=${searchWithoutTLD}.crypto&domains=${searchWithoutTLD}.nft&domains=${searchWithoutTLD}.x&domains=${searchWithoutTLD}.wallet&domains=${searchWithoutTLD}.bitcoin&domains=${searchWithoutTLD}.dao&domains=${searchWithoutTLD}.888&domains=${searchWithoutTLD}.blockchain&domains=${searchWithoutTLD}.zil&key=crypto.ETH.address`,
+          apiHeader
+        );
+        //Call ENS and push into the UD array
+        let ENSdomain = await this.getListOfTLDs(searchWithoutTLD);
+        domainData.data.data.push(ENSdomain);
+        if (domainData) {
+          resolve(domainData);
+        }
+      } catch (error) {
+        console.log(error, "Error occurred fetching: searchDomain()");
+        reject(error);
       }
-    } catch (error) {
-      console.log(error, "Error occurred fetching: searchDomain()");
-      reject(error);
+    });
+    return promise;
+  };
+
+/* Additional Helpers */
+
+UnstoppableDomains.prototype.getListOfTLDs = async function getListOfTLDs() {
+  var promise = new Promise(async (resolve, reject) => {
+    const supportedTLDs = await axios.get(
+      `https://docs.unstoppabledomains.com/openapi/resolution/#operation/StatusController.listSupportedTlds`,
+      apiHeader
+    );
+    if (supportedTLDs) {
+      resolve(supportedTLDs);
+    } else {
+      reject("Could not get the supported TLDs");
     }
   });
   return promise;
 };
 
-/* Section 3: CRUD */
+/* Section 3: CRUD, CURRENTLY NO CRUD OPERATIONS ARE USED */
 
 UnstoppableDomains.prototype.create = function createUnstoppableDomain(obj) {
   var unstoppableDomain = this;
@@ -170,43 +186,6 @@ UnstoppableDomains.prototype.delete = function deleteUnstoppableDomain() {
     } else {
       reject(new ApiError(400, "Missing unstoppable domain delete id"));
     }
-  });
-  return promise;
-};
-
-/* Additional Helpers */
-
-UnstoppableDomains.prototype.getListOfTLDs = async function getListOfTLDs() {
-  var promise = new Promise(async (resolve, reject) => {
-    const supportedTLDs = await axios.get(
-      `https://docs.unstoppabledomains.com/openapi/resolution/#operation/StatusController.listSupportedTlds`,
-      apiHeader
-    );
-    if (supportedTLDs) {
-      resolve(supportedTLDs);
-    } else {
-      reject("Could not get the supported TLDs");
-    }
-  });
-  return promise;
-};
-
-UnstoppableDomains.prototype.getListOfTLDs = async function getListOfTLDs(
-  searchWithoutTLD
-) {
-  var promise = new Promise(async (resolve, reject) => {
-    const provider = new ethers.providers.JsonRpcProvider(
-      config.rpc_urls.mainnet_eth
-    );
-    let hasAddressAssociatedWithENS = await provider.resolveName(
-      `${searchWithoutTLD}.eth`
-    );
-    resolve({
-      domain: `${searchWithoutTLD}.eth`,
-      records: hasAddressAssociatedWithENS
-        ? { "crypto.ETH.address": hasAddressAssociatedWithENS }
-        : {},
-    });
   });
   return promise;
 };
