@@ -5,7 +5,6 @@ var ApiError = require("./ApiError");
 module.exports = UnstoppableDomains;
 var config = require("../../config.json");
 const axios = require("axios");
-const ethers = require("ethers");
 
 const apiHeader = {
   method: "GET",
@@ -75,7 +74,7 @@ UnstoppableDomains.prototype.getListOfTLDs = async function getListOfTLDs() {
 };
 
 /* Section 3: CRUD, CURRENTLY NO CRUD OPERATIONS ARE USED */
-
+/* 
 UnstoppableDomains.prototype.create = function createUnstoppableDomain(obj) {
   var unstoppableDomain = this;
   var promise = new Promise((resolve, reject) => {
@@ -157,10 +156,10 @@ UnstoppableDomains.prototype.update = function updateUnstoppableDomain(
 };
 
 UnstoppableDomains.prototype.delete = function deleteUnstoppableDomain() {
-  /*   process.on("unhandledRejection", (reason, p) => {
+     process.on("unhandledRejection", (reason, p) => {
     console.log("Unhandled Rejection at: Promise", p, "reason:", reason);
     // application specific logging, throwing an error, or other logic here
-  }); */
+  }); 
   var unstoppableDomain = this;
   var promise = new Promise((resolve, reject) => {
     if (unstoppableDomain.id) {
@@ -186,4 +185,4 @@ UnstoppableDomains.prototype.delete = function deleteUnstoppableDomain() {
     }
   });
   return promise;
-};
+}; */
