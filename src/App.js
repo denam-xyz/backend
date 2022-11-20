@@ -9,11 +9,11 @@ import Home from "./pages/Home";
 function App() {
   return (
     <DataContext.Provider value={{ userAccountAddress: "address here" }}>
-      <body class="stretched device-xl bg-white no-transition">
+      <body className="stretched device-xl bg-white no-transition">
         <Navbar />
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/domain-search" element={<DomainSearch />} />
+          <Route path="/search" element={<DomainSearch />} />
         </Routes>
       </body>
       <Footer />
