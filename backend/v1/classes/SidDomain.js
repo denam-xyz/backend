@@ -38,6 +38,8 @@ SidDomain.prototype.getSid = async function getSid(name) {
           address !== ethers.constants.AddressZero
             ? { "crypto.BNB.address": address }
             : {},
+        network: "bsc",
+        protocol: "spaceid",
       });
     } else {
       reject();

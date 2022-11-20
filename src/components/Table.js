@@ -1,5 +1,19 @@
 import React from "react";
 
+const fetchHttpLink = (item) => {
+  console.log(item.protocol, "HELOOOOOOOOOOOOOOOOOO");
+  switch (item.protocol) {
+    case "ens":
+      return `https://app.ens.domains/name/${item.domain}/register`;
+    case "ud":
+      return `https://unstoppabledomains.com/search?searchTerm=${item.domain}&searchRef=home&tab=relevant`;
+    case "spaceid":
+      return `https://app.space.id/name/${item.domain}/register`;
+    default:
+      return "foo";
+  }
+};
+
 const Table = ({ tableData }) => {
   console.log(tableData, "what is tabledata+");
   const renderRows = () => {
@@ -28,11 +42,7 @@ const Table = ({ tableData }) => {
                   Unavailable
                 </button>
               ) : (
-                <a
-                  href={`https://unstoppabledomains.com/search?searchTerm=${item.domain}&searchRef=home&tab=relevant`}
-                  target="_blank"
-                  rel="noreferrer"
-                >
+                <a href={fetchHttpLink(item)} target="_blank" rel="noreferrer">
                   <button
                     type="submit"
                     className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"

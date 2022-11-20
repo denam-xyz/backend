@@ -36,6 +36,8 @@ EnsDomain.prototype.getENSdomain = async function getENSdomain(
         records: hasAddressAssociatedWithENS
           ? { "crypto.ETH.address": hasAddressAssociatedWithENS }
           : {},
+        network: "eth",
+        protocol: "ens",
       });
     } else {
       reject();

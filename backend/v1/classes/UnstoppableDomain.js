@@ -1,5 +1,3 @@
-/* Section 2: definition */
-
 var MySQL = require("../../MySQL");
 var ApiError = require("./ApiError");
 module.exports = UnstoppableDomain;
