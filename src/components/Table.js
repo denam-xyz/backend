@@ -1,7 +1,6 @@
 import React from "react";
 
 const fetchHttpLink = (item) => {
-  console.log(item.protocol, "HELOOOOOOOOOOOOOOOOOO");
   switch (item.protocol) {
     case "ens":
       return `https://app.ens.domains/name/${item.domain}/register`;
@@ -9,8 +8,6 @@ const fetchHttpLink = (item) => {
       return `https://unstoppabledomains.com/search?searchTerm=${item.domain}&searchRef=home&tab=relevant`;
     case "spaceid":
       return `https://app.space.id/name/${item.domain}/register`;
-    default:
-      return "foo";
   }
 };
 
