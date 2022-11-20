@@ -18,17 +18,15 @@ const Table = ({ tableData }) => {
               {domainName[1]}
             </th>
             <td className="">Ethereum</td>
-            <td className="">
+            <td className="text-right pr-6">
               {Object.keys(item.records).length > 0 ? (
-                <td className="">
-                  <button
-                    type="button"
-                    className="text-white bg-blue-400 dark:bg-blue-500 cursor-not-allowed font-medium rounded-lg text-sm px-5 py-2.5 text-center"
-                    disabled
-                  >
-                    Unavailable
-                  </button>
-                </td>
+                <button
+                  type="button"
+                  className="text-white bg-blue-400 dark:bg-blue-500 cursor-not-allowed font-medium rounded-lg text-sm px-5 py-2.5 "
+                  disabled
+                >
+                  Unavailable
+                </button>
               ) : (
                 <a
                   href={`https://unstoppabledomains.com/search?searchTerm=${item.domain}&searchRef=home&tab=relevant`}
@@ -81,7 +79,7 @@ const Table = ({ tableData }) => {
             <th scope="col" className="py-3 pr-6">
               Network
             </th>
-            <th scope="col" className="py-3 pr-6">
+            <th scope="col" className="py-3 pr-8 text-right">
               Action
             </th>
           </tr>
