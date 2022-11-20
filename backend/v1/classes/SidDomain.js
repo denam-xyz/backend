@@ -1,9 +1,7 @@
 const SID = require("@siddomains/sidjs").default;
 const SIDfunctions = require("@siddomains/sidjs");
-const Web3 = require("web3");
 module.exports = SidDomain;
 var config = require("../../config.json");
-const axios = require("axios");
 const ethers = require("ethers");
 
 function SidDomain(sidDomain) {
@@ -21,21 +19,25 @@ SidDomain.prototype.set = function setSid() {
 
 SidDomain.prototype.getSid = async function getSid(name) {
   var promise = new Promise(async (resolve, reject) => {
-    const infura = "https://bsc-dataseed2.binance.org/";
-    const provider = new Web3.providers.HttpProvider(infura);
+    const provider = new ethers.providers.JsonRpcProvider(
+      config.rpc_urls.mainnet_bsc
+    );
 
     const sid = new SID({
       provider,
       sidAddress: SIDfunctions.getSidAddress("56"),
     });
 
+    name = `${name}.bnb`;
     const address = await sid.name(name).getAddress(); // 0x123
-    console.log("name: %s, address: %s", name, address);
-
+    //console.log("name: %s, address: %s", name, address);
     if (name) {
       resolve({
-        domain: `${name}.bnb`,
-        records: address ? { "crypto.BNB.address": address } : {},
+        domain: name,
+        records:
+          address !== ethers.constants.AddressZero
+            ? { "crypto.BNB.address": address }
+            : {},
       });
     } else {
       reject();
