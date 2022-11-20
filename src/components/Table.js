@@ -9,29 +9,51 @@ const Table = ({ tableData }) => {
         console.log(item.domain.split("."), "ITEM.DOMAIN");
         let domainName = item.domain.split(".");
         return (
-          <tr class="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
+          <tr className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
             <th
               scope="row"
-              class="py-4 pl-6 text-gray-900 whitespace-nowrap dark:text-white"
+              className="py-6 pl-6 text-gray-900 whitespace-nowrap dark:text-white"
             >
               <span className="font-medium">{domainName[0]}</span>.
               {domainName[1]}
             </th>
-            <td class="py-4 pr-6">Ethereum</td>
-            <td class="py-4 px-6">
-              {Object.keys(item.records).length > 0 ? "NO" : "YES"}
-            </td>
-            <td class="">
+            <td className="">Ethereum</td>
+            <td className="">
               {Object.keys(item.records).length > 0 ? (
-                <td class="py-4 pr-6">NOT AVAILABLE</td>
+                <td className="">
+                  <button
+                    type="button"
+                    className="text-white bg-blue-400 dark:bg-blue-500 cursor-not-allowed font-medium rounded-lg text-sm px-5 py-2.5 text-center"
+                    disabled
+                  >
+                    Unavailable
+                  </button>
+                </td>
               ) : (
                 <a
                   href={`https://unstoppabledomains.com/search?searchTerm=${item.domain}&searchRef=home&tab=relevant`}
-                  class="font-medium text-blue-600 dark:text-blue-500 hover:underline"
                   target="_blank"
                   rel="noreferrer"
                 >
-                  BUY
+                  <button
+                    type="submit"
+                    className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
+                  >
+                    Buy now
+                    <svg
+                      aria-hidden="true"
+                      className="ml-2 -mr-1 w-5 h-5"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        fill-rule="evenodd"
+                        d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"
+                        clip-rule="evenodd"
+                      ></path>
+                    </svg>
+                  </button>
                 </a>
               )}
             </td>
@@ -49,20 +71,17 @@ const Table = ({ tableData }) => {
   };
 
   return (
-    <div class="overflow-x-auto relative shadow-md sm:rounded-lg mx-60">
-      <table class="w-full max-w-full text-sm text-left text-gray-500 dark:text-gray-400">
-        <thead class="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+    <div className="overflow-x-auto relative shadow-md sm:rounded-lg mx-60">
+      <table className="w-full max-w-full text-base text-left text-gray-500 dark:text-gray-400">
+        <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
           <tr>
-            <th scope="col" class="py-3 pl-6">
+            <th scope="col" className="py-3 pl-6">
               Domain name
             </th>
-            <th scope="col" class="py-3 pr-6">
+            <th scope="col" className="py-3 pr-6">
               Network
             </th>
-            <th scope="col" class="py-3 px-6">
-              Available
-            </th>
-            <th scope="col" class="">
+            <th scope="col" className="py-3 pr-6">
               Action
             </th>
           </tr>
