@@ -2,7 +2,7 @@
 
 var MySQL = require("../../MySQL");
 var ApiError = require("./ApiError");
-module.exports = UnstoppableDomains;
+module.exports = UnstoppableDomain;
 var config = require("../../config.json");
 const axios = require("axios");
 
@@ -13,11 +13,11 @@ const apiHeader = {
   },
 };
 
-function UnstoppableDomains(unstoppableDomain) {
+function UnstoppableDomain(unstoppableDomain) {
   this.set(unstoppableDomain);
 }
 
-UnstoppableDomains.prototype.set = function setUnstoppableDomain(
+UnstoppableDomain.prototype.set = function setUnstoppableDomain(
   unstoppableDomain
 ) {
   if (typeof unstoppableDomain !== "undefined") {
@@ -30,7 +30,7 @@ UnstoppableDomains.prototype.set = function setUnstoppableDomain(
 // Section 1: Unstoppable Domains API
 //TODO: Refactor this class to be a 'Search' class instead and make a seperate class for ENS + Unstoppable domain api/calls
 //The 'Search' class will be using the child classes UnstoppableDomains + ENS
-UnstoppableDomains.prototype.getUnstoppableDomainData =
+UnstoppableDomain.prototype.getUnstoppableDomainData =
   async function getUnstoppableDomainData(searchText) {
     var promise = new Promise(async (resolve, reject) => {
       try {
@@ -58,7 +58,7 @@ UnstoppableDomains.prototype.getUnstoppableDomainData =
 
 /* Additional Helpers */
 
-UnstoppableDomains.prototype.getListOfTLDs = async function getListOfTLDs() {
+UnstoppableDomain.prototype.getListOfTLDs = async function getListOfTLDs() {
   var promise = new Promise(async (resolve, reject) => {
     const supportedTLDs = await axios.get(
       `https://docs.unstoppabledomains.com/openapi/resolution/#operation/StatusController.listSupportedTlds`,

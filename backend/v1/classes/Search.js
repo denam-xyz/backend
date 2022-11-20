@@ -1,7 +1,8 @@
 /* Section 2: definition */
 module.exports = Search;
-const UnstoppableDomains = require("./UnstoppableDomain");
-const EnsDomains = require("./EnsDomains");
+const UnstoppableDomain = require("./UnstoppableDomain");
+const EnsDomain = require("./EnsDomain");
+const SpaceIdDomain = require("./SidDomain");
 
 function Search(unstoppableDomain) {
   this.set(unstoppableDomain);
@@ -14,13 +15,15 @@ Search.prototype.set = function setSearch(search) {
     this.url = search.url;
   }
 };
+
 //Parent class to all other domain classes, this is where we aggregate into 1 object to spit out to frontend
 Search.prototype.searchDomain = async function searchDomain(searchText) {
   var promise = new Promise(async (resolve, reject) => {
     const searchWithoutTLD = searchText.split(".")[0];
 
-    let unstoppableDomain = new UnstoppableDomains();
-    let ens = new EnsDomains();
+    let unstoppableDomain = new UnstoppableDomain();
+    let ens = new EnsDomain();
+    let sid = new SpaceIdDomain();
 
     try {
       //Call UD api data
@@ -28,10 +31,12 @@ Search.prototype.searchDomain = async function searchDomain(searchText) {
         await unstoppableDomain.getUnstoppableDomainData(searchText);
 
       //Call ENS and push into the UD data array
-      let ENSdomain = await ens.getENSdomains(searchWithoutTLD);
+      let ENSdomain = await ens.getENSdomain(searchWithoutTLD);
       unstoppableDomainData.data.data.push(ENSdomain);
 
       //TODO ... call the other API classes, NEAR, BSC, Polkadot etc....
+      let sidDomain = await sid.getSid(searchText);
+      unstoppableDomainData.data.data.push(sidDomain);
 
       resolve(unstoppableDomainData.data);
     } catch (error) {
