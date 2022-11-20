@@ -30,6 +30,11 @@ EnsDomain.prototype.getENSdomain = async function getENSdomain(
     let hasAddressAssociatedWithENS = await provider.resolveName(
       `${searchWithoutTLD}.eth`
     );
+
+    //TODO: use this library instead of ethers
+    //https://www.npmjs.com/package/@ensdomains/ens-contracts
+    //https://www.youtube.com/watch?v=m-5aPylbqOU&ab_channel=Gasvard
+
     if (searchWithoutTLD) {
       resolve({
         domain: `${searchWithoutTLD}.eth`,

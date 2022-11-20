@@ -10,7 +10,6 @@ const SearchSubmit = ({ home, initialValue }) => {
 
   const handleSearchClick = async () => {
     let data = await fetchSearchData();
-    console.log(data, "What is data?");
     if (data) {
       navigate("/search", {
         state: { searchInput: searchInput, tableData: data },
@@ -21,9 +20,9 @@ const SearchSubmit = ({ home, initialValue }) => {
     try {
       setLoading(true);
       let responseData = await SearchService.getSearch(searchInput, 0);
-      setDomainSearchData(responseData.data);
+      setDomainSearchData(responseData);
       setLoading(false);
-      return responseData.data;
+      return responseData;
     } catch (err) {
       console.log(err, "error occurred getting searchDomain()");
       return null;

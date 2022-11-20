@@ -32,13 +32,13 @@ Search.prototype.searchDomain = async function searchDomain(searchText) {
 
       //Call ENS and push into the UD data array
       let ENSdomain = await ens.getENSdomain(searchWithoutTLD);
-      unstoppableDomainData.data.data.push(ENSdomain);
+      unstoppableDomainData.push(ENSdomain);
 
       //TODO ... call the other API classes, NEAR, BSC, Polkadot etc....
       let sidDomain = await sid.getSid(searchText);
-      unstoppableDomainData.data.data.push(sidDomain);
+      unstoppableDomainData.push(sidDomain);
 
-      resolve(unstoppableDomainData.data);
+      resolve(unstoppableDomainData);
     } catch (error) {
       console.log(error, "Error occurred fetching: searchDomain()");
       reject(error);

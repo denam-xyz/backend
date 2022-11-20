@@ -30,7 +30,6 @@ SidDomain.prototype.getSid = async function getSid(name) {
 
     name = `${name}.bnb`;
     const address = await sid.name(name).getAddress(); // 0x123
-    //console.log("name: %s, address: %s", name, address);
     if (name) {
       resolve({
         domain: name,

@@ -43,8 +43,16 @@ UnstoppableDomain.prototype.getUnstoppableDomainData =
           apiHeader
         );
 
-        if (domainData) {
-          resolve(domainData);
+        //Add network and protocol to the array of objects from the API
+        var result = await domainData.data.data.map(function (el) {
+          var newObject = Object.assign({}, el);
+          newObject.network = "eth";
+          newObject.protocol = "ud";
+          return newObject;
+        });
+
+        if (result) {
+          resolve(result);
         }
       } catch (error) {
         console.log(error, "Error occurred fetching: searchDomain()");

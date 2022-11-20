@@ -12,12 +12,10 @@ const fetchHttpLink = (item) => {
 };
 
 const Table = ({ tableData }) => {
-  console.log(tableData, "what is tabledata+");
   const renderRows = () => {
     let rows = [];
     if (tableData && tableData.length > 0) {
       rows = tableData.map((item, index) => {
-        console.log(item.domain.split("."), "ITEM.DOMAIN");
         let domainName = item.domain.split(".");
         return (
           <tr className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
