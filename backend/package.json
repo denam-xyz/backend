@@ -1,20 +1,22 @@
 {
-	"name": "nsfw",
-	"version": "1.0.0",
-	"description": "Backend for nswf",
-	"main": "index.js",
-	"scripts": {
-		"test": "echo \"Error: no test specified\" && exit 1"
-	},
-	"author": "bedbuug",
-	"license": "ISC",
-	"dependencies": {
-		"axios": "^0.22.0",
-		"body-parser": "^1.19.0",
-		"ethers": "^5.7.2",
-		"express": "^4.17.1",
-		"fast-xml-parser": "^3.20.3",
-		"mysql2": "^2.3.0",
-		"node-fetch": "^3.3.0"
-	}
+  "name": "nsfw",
+  "version": "1.0.0",
+  "description": "Backend for nswf",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "bedbuug",
+  "license": "ISC",
+  "dependencies": {
+    "@siddomains/sidjs": "^0.1.16",
+    "axios": "^0.22.0",
+    "body-parser": "^1.19.0",
+    "ethers": "^5.7.2",
+    "express": "^4.17.1",
+    "fast-xml-parser": "^3.20.3",
+    "mysql2": "^2.3.0",
+    "node-fetch": "^3.3.0",
+    "web3": "^1.8.1"
+  }
 }

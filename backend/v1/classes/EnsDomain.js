@@ -2,17 +2,17 @@
 
 var MySQL = require("../../MySQL");
 var ApiError = require("./ApiError");
-module.exports = EnsDomains;
+module.exports = EnsDomain;
 var config = require("../../config.json");
 const axios = require("axios");
 const ethers = require("ethers");
 
-function EnsDomains(ensDomain) {
+function EnsDomain(ensDomain) {
   this.set(ensDomain);
 }
 
 //Only needed for DB interactions
-EnsDomains.prototype.set = function setUnstoppableDomain(ensDomain) {
+EnsDomain.prototype.set = function setENSDomain() {
   if (typeof ensDomain !== "undefined") {
     this.description = ensDomain.description;
     this.name = ensDomain.name;
@@ -20,7 +20,7 @@ EnsDomains.prototype.set = function setUnstoppableDomain(ensDomain) {
   }
 };
 
-EnsDomains.prototype.getENSdomains = async function getENSdomains(
+EnsDomain.prototype.getENSdomain = async function getENSdomain(
   searchWithoutTLD
 ) {
   var promise = new Promise(async (resolve, reject) => {
@@ -30,12 +30,23 @@ EnsDomains.prototype.getENSdomains = async function getENSdomains(
     let hasAddressAssociatedWithENS = await provider.resolveName(
       `${searchWithoutTLD}.eth`
     );
-    resolve({
-      domain: `${searchWithoutTLD}.eth`,
-      records: hasAddressAssociatedWithENS
-        ? { "crypto.ETH.address": hasAddressAssociatedWithENS }
-        : {},
-    });
+
+    //TODO: use this library instead of ethers
+    //https://www.npmjs.com/package/@ensdomains/ens-contracts
+    //https://www.youtube.com/watch?v=m-5aPylbqOU&ab_channel=Gasvard
+
+    if (searchWithoutTLD) {
+      resolve({
+        domain: `${searchWithoutTLD}.eth`,
+        records: hasAddressAssociatedWithENS
+          ? { "crypto.ETH.address": hasAddressAssociatedWithENS }
+          : {},
+        network: "eth",
+        protocol: "ens",
+      });
+    } else {
+      reject();
+    }
   });
   return promise;
 };

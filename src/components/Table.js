@@ -1,12 +1,21 @@
 import React from "react";
 
+const fetchHttpLink = (item) => {
+  switch (item.protocol) {
+    case "ens":
+      return `https://app.ens.domains/name/${item.domain}/register`;
+    case "ud":
+      return `https://unstoppabledomains.com/search?searchTerm=${item.domain}&searchRef=home&tab=relevant`;
+    case "spaceid":
+      return `https://app.space.id/name/${item.domain}/register`;
+  }
+};
+
 const Table = ({ tableData }) => {
-  console.log(tableData, "what is tabledata+");
   const renderRows = () => {
     let rows = [];
     if (tableData && tableData.length > 0) {
       rows = tableData.map((item, index) => {
-        console.log(item.domain.split("."), "ITEM.DOMAIN");
         let domainName = item.domain.split(".");
         return (
           <tr className="bg-white border-b dark:bg-gray-900 dark:border-gray-700">
@@ -28,11 +37,7 @@ const Table = ({ tableData }) => {
                   Unavailable
                 </button>
               ) : (
-                <a
-                  href={`https://unstoppabledomains.com/search?searchTerm=${item.domain}&searchRef=home&tab=relevant`}
-                  target="_blank"
-                  rel="noreferrer"
-                >
+                <a href={fetchHttpLink(item)} target="_blank" rel="noreferrer">
                   <button
                     type="submit"
                     className="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center inline-flex items-center dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"
