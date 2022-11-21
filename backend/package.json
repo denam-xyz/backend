@@ -12,6 +12,7 @@
     "@siddomains/sidjs": "^0.1.16",
     "axios": "^0.22.0",
     "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
     "ethers": "^5.7.2",
     "express": "^4.17.1",
     "fast-xml-parser": "^3.20.3",
