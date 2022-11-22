@@ -4,6 +4,7 @@ const UnstoppableDomain = require("./UnstoppableDomain");
 const EnsDomain = require("./EnsDomain");
 const SpaceIdDomain = require("./SidDomain");
 const AptosDomain = require("./AptosDomain");
+const BlockStacksDomain = require("./BlockStacksDomain");
 
 function Search(unstoppableDomain) {
   this.set(unstoppableDomain);
@@ -26,6 +27,7 @@ Search.prototype.searchDomain = async function searchDomain(searchText) {
     let ens = new EnsDomain();
     let sid = new SpaceIdDomain();
     let ans = new AptosDomain();
+    let blockStacks = new BlockStacksDomain();
 
     try {
       //Call UD api data
@@ -41,6 +43,9 @@ Search.prototype.searchDomain = async function searchDomain(searchText) {
 
       let ansDomain = await ans.getAptos(searchText);
       unstoppableDomainData.push(ansDomain);
+
+      let blockstackDomain = await blockStacks.getBlockStacks(searchText);
+      unstoppableDomainData.push(blockstackDomain);
 
       //TODO ... call the other API classes, NEAR, Polkadot etc....
 
