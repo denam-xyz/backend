@@ -38,7 +38,7 @@ SidDomain.prototype.getSid = async function getSid(name) {
             ? { "crypto.BNB.address": address }
             : {},
         network: "bsc",
-        protocol: "spaceid",
+        protocol: "sid",
       });
     } else {
       reject();
