@@ -6,8 +6,10 @@ const fetchHttpLink = (item) => {
       return `https://app.ens.domains/name/${item.domain}/register`;
     case "ud":
       return `https://unstoppabledomains.com/search?searchTerm=${item.domain}&searchRef=home&tab=relevant`;
-    case "spaceid":
+    case "sid":
       return `https://app.space.id/name/${item.domain}/register`;
+    case "apt":
+      return `https://www.aptosnames.com/name/${item.domain}`;
   }
 };
 
