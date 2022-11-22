@@ -14,13 +14,17 @@ AptosDomain.prototype.set = function setAptos() {
   }
 };
 
-AptosDomain.prototype.getAptos = async function getSid(name) {
+AptosDomain.prototype.getAptos = async function getAptos(name) {
   var promise = new Promise(async (resolve, reject) => {
-    let ANSaddress = await axios.get(
-      `https://www.aptosnames.com/api/mainnet/v1/address/${name}`
-    );
+    try {
+      var ANSaddress = await axios.get(
+        `https://www.aptosnames.com/api/mainnet/v1/address/${name}`
+      );
+    } catch (err) {
+      console.log(err, "Error occurred fetching: getAptos()");
+      reject(err);
+    }
     ANSaddress = ANSaddress.data;
-    console.log(ANSaddress);
     if (ANSaddress) {
       resolve({
         domain: `${name}.apt`,
