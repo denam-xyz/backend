@@ -10,6 +10,8 @@ const fetchHttpLink = (item) => {
       return `https://app.space.id/name/${item.domain}/register`;
     case "apt":
       return `https://www.aptosnames.com/name/${item.domain}`;
+    case "stacks":
+      return "https://stx.name/";
   }
 };
 

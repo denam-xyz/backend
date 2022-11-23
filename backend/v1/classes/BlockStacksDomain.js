@@ -14,6 +14,7 @@ BlockStacksDomain.prototype.set = function setBlockStacks() {
   }
 };
 
+// Checks
 function containsAny(source, target) {
   var result = source.filter(function (item) {
     return target.indexOf(item) > -1;
@@ -23,7 +24,14 @@ function containsAny(source, target) {
 
 BlockStacksDomain.prototype.getListOfTLDs = async function getListOfTLDs() {
   var promise = new Promise(async (resolve, reject) => {
-    let customSupportedTLDS = ["app", "btc", "id", "stx", "stacks"];
+    let customSupportedTLDS = [
+      "app",
+      "btc",
+      "id",
+      "stx",
+      "stacks",
+      "blockstack",
+    ];
     let supportedTLDs = await axios.get(
       `https://stacks-node-api.mainnet.stacks.co/v1/namespaces`
     );
