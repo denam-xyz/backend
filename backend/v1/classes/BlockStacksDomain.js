@@ -14,15 +14,22 @@ BlockStacksDomain.prototype.set = function setBlockStacks() {
   }
 };
 
+function containsAny(source, target) {
+  var result = source.filter(function (item) {
+    return target.indexOf(item) > -1;
+  });
+  return result.length > 0;
+}
+
 BlockStacksDomain.prototype.getListOfTLDs = async function getListOfTLDs() {
   var promise = new Promise(async (resolve, reject) => {
+    let customSupportedTLDS = ["app", "btc", "id", "stx", "stacks"];
     let supportedTLDs = await axios.get(
       `https://stacks-node-api.mainnet.stacks.co/v1/namespaces`
     );
     supportedTLDs = supportedTLDs.data.namespaces;
-    console.log(supportedTLDs);
-    if (supportedTLDs) {
-      resolve(supportedTLDs);
+    if (containsAny(supportedTLDs, customSupportedTLDS)) {
+      resolve(customSupportedTLDS);
     } else {
       reject("Could not get the supported TLDs");
     }
@@ -35,32 +42,32 @@ BlockStacksDomain.prototype.getBlockStacks = async function getBlockStacks(
 ) {
   var promise = new Promise(async (resolve, reject) => {
     let supportedTLDs = await new BlockStacksDomain().getListOfTLDs();
-    try {
-      for (let i = 0; i < supportedTLDs.length; i++) {
-        console.log(name, supportedTLDs[i], "HELOO");
+    let responseObj = [];
+
+    for (let i = 0; i < supportedTLDs.length; i++) {
+      try {
+        //console.log(name, supportedTLDs[i], "HELOO");
         const response = await axios.get(
           `https://stacks-node-api.mainnet.stacks.co/v1/names/${name}.${supportedTLDs[i]}`
         );
-        console.log(response.error);
-        if (response.address) {
-          resolve({
+        if (response.data.address) {
+          responseObj.push({
             domain: `${name}.${supportedTLDs[i]}`,
-            records: { "crypto.STX.address": response.address },
-            network: "stx",
-            protocol: "stacks",
-          });
-        } else if (response.error) {
-          resolve({
-            domain: `${name}.${supportedTLDs[i]}`,
-            records: {},
+            records: { "crypto.STX.address": response.data.address },
             network: "stx",
             protocol: "stacks",
           });
         }
+      } catch (err) {
+        responseObj.push({
+          domain: `${name}.${supportedTLDs[i]}`,
+          records: {},
+          network: "stx",
+          protocol: "stacks",
+        });
       }
-    } catch (err) {
-      reject(err);
     }
+    resolve(responseObj);
   });
   return promise;
 };

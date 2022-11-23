@@ -45,7 +45,7 @@ Search.prototype.searchDomain = async function searchDomain(searchText) {
       unstoppableDomainData.push(ansDomain);
 
       let blockstackDomain = await blockStacks.getBlockStacks(searchText);
-      unstoppableDomainData.push(blockstackDomain);
+      unstoppableDomainData = [...unstoppableDomainData, ...blockstackDomain];
 
       //TODO ... call the other API classes, NEAR, Polkadot etc....
 
