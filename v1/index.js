@@ -6,18 +6,13 @@ var bodyParser = require("body-parser");
 var app = express();
 app.use(bodyParser());
 app.use(bodyParser.json());
-app.use(cors());
+app.use(cors()); // this fixes cors issue
 
-var corsOptions = {
-  origin: "https://denam.on.fleek.co",
-  optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
-};
-
-app.get(cors(corsOptions));
-
-// app.listen(80, function () {
-//   console.log("CORS-enabled web server listening on port 80");
-// });
+// var corsOptions = {
+//   origin: "https://denam.on.fleek.co",
+//   optionsSuccessStatus: 200, // some legacy browsers (IE11, various SmartTVs) choke on 204
+// };
+// STRUGGLE: https://expressjs.com/en/resources/middleware/cors.html
 
 for (var key in endpoints) {
   var endpoint = endpoints[key];
