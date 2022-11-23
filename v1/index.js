@@ -23,9 +23,9 @@ app.get(
   }
 );
 
-app.listen(80, function () {
-  console.log("CORS-enabled web server listening on port 80");
-});
+// app.listen(80, function () {
+//   console.log("CORS-enabled web server listening on port 80");
+// });
 
 for (var key in endpoints) {
   var endpoint = endpoints[key];
