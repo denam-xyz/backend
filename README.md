@@ -6,4 +6,12 @@ Create a .config file similar to the config-sample.json file and substitute with
 
 ## Start backend server with:
 
+npm i
+
 node index.js
+
+Public endpoint (using Heroku alt):
+
+```
+https://backend-s9tj.onrender.com/v1/unstoppableDomains/search/{name}
+```
