@@ -22,26 +22,29 @@ SidDomain.prototype.getSid = async function getSid(name) {
     const provider = new ethers.providers.JsonRpcProvider(
       config.rpc_urls.mainnet_bsc
     );
-
-    const sid = new SID({
-      provider,
-      sidAddress: SIDfunctions.getSidAddress("56"),
-    });
-
-    name = `${name}.bnb`;
-    const address = await sid.name(name).getAddress(); // 0x123
-    if (name) {
-      resolve({
-        domain: name,
-        records:
-          address !== ethers.constants.AddressZero
-            ? { "crypto.BNB.address": address }
-            : {},
-        network: "bsc",
-        protocol: "sid",
+    try {
+      const sid = new SID({
+        provider,
+        sidAddress: SIDfunctions.getSidAddress("56"),
       });
-    } else {
-      reject();
+
+      name = `${name}.bnb`;
+      const address = await sid.name(name).getAddress(); // 0x123
+      if (name) {
+        resolve({
+          domain: name,
+          records:
+            address !== ethers.constants.AddressZero
+              ? { "crypto.BNB.address": address }
+              : {},
+          network: "bsc",
+          protocol: "sid",
+        });
+      } else {
+        reject();
+      }
+    } catch (err) {
+      reject(err);
     }
   });
   return promise;
