@@ -43,6 +43,18 @@ UnstoppableDomain.prototype.getUnstoppableDomainData =
           apiHeader
         );
 
+        try {
+          const hej = await axios.get(
+            `https://resolve.unstoppabledomains.com/records?domains=${searchWithoutTLD}.crypto&domains=${searchWithoutTLD}.nft&domains=${searchWithoutTLD}.x&domains=${searchWithoutTLD}.wallet&domains=${searchWithoutTLD}.bitcoin&domains=${searchWithoutTLD}.dao&domains=${searchWithoutTLD}.888&domains=${searchWithoutTLD}.blockchain&domains=${searchWithoutTLD}.zil`,
+            apiHeader
+          );
+          let url = `https://resolve.unstoppabledomains.com/records?domains=${searchWithoutTLD}.crypto&domains=${searchWithoutTLD}.nft&domains=${searchWithoutTLD}.x&domains=${searchWithoutTLD}.wallet&domains=${searchWithoutTLD}.bitcoin&domains=${searchWithoutTLD}.dao&domains=${searchWithoutTLD}.888&domains=${searchWithoutTLD}.blockchain&domains=${searchWithoutTLD}.zil`;
+          console.log(hej.data, "URL ENDPOINT USED:", url);
+          console.log(hej.data.data[0].records, "records");
+        } catch (err) {
+          console.log("COULD NOT FETCH");
+        }
+
         //Add network and protocol to the array of objects from the API
         var result = await domainData.data.data.map(function (el) {
           var newObject = Object.assign({}, el);

@@ -38,12 +38,8 @@ Search.prototype.searchDomain = async function searchDomain(searchText) {
       let ENSdomain = await ens.getENSdomain(searchWithoutTLD);
       unstoppableDomainData.push(ENSdomain);
 
-      try {
-        let sidDomain = await sid.getSid(searchText);
-        unstoppableDomainData.push(sidDomain);
-      } catch (err) {
-        console.log("Could not fetch SID domains");
-      }
+      let sidDomain = await sid.getSid(searchText);
+      unstoppableDomainData.push(sidDomain);
 
       let ansDomain = await ans.getAptos(searchText);
       unstoppableDomainData.push(ansDomain);
