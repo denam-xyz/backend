@@ -23,6 +23,8 @@ Search.prototype.searchDomain = async function searchDomain(searchText) {
   var promise = new Promise(async (resolve, reject) => {
     const searchWithoutTLD = searchText.split(".")[0];
 
+    //TODO: Sök PROMISE ALL, lite osäker kolla upp
+    //
     let unstoppableDomain = new UnstoppableDomain();
     let ens = new EnsDomain();
     let sid = new SpaceIdDomain();

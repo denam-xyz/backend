@@ -1,15 +1,15 @@
 {
-    "database_connection": {
-      "host": "localhost",
-      "user": "root",
-      "database": "denam",
-      "password": "YOUR_DB_PASSWORD"
-    },
-    "unstoppable_domains": {
-      "API_KEY": "08c628ab-096b-47e7-ad84-f9616a83920b"
-    },
-    "rpc_urls": {
-      "mainnet_eth": "https://mainnet.infura.io/v3/a2ad6f8c0e57453ca4918331f16de87d",
-      "mainnet_bsc": "https://bsc-dataseed2.binance.org/"
-    }
+  "database_connection": {
+    "host": "localhost",
+    "user": "root",
+    "database": "denam",
+    "password": "YOUR_DB_PASSWORD"
+  },
+  "unstoppable_domains": {
+    "API_KEY": "08c628ab-096b-47e7-ad84-f9616a83920b"
+  },
+  "rpc_urls": {
+    "mainnet_eth": "https://mainnet.infura.io/v3/a2ad6f8c0e57453ca4918331f16de87d",
+    "mainnet_bsc": "https://bsc-dataseed2.binance.org/"
+  }
 }

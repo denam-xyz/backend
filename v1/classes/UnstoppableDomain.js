@@ -43,6 +43,22 @@ UnstoppableDomain.prototype.getUnstoppableDomainData =
           apiHeader
         );
 
+        //Check metadata: https://docs.unstoppabledomains.com/openapi/resolution/#tag/Meta-Data
+
+        //CHECK supported TLDS just get an array:
+        //https://docs.unstoppabledomains.com/developer-toolkit/resolution-integration-methods/resolution-service/endpoints/get-supported-tlds/
+
+        const hello = await axios.get(
+          `https://resolve.unstoppabledomains.com/records?domains=${searchWithoutTLD}.crypto&domains=${searchWithoutTLD}.nft&domains=${searchWithoutTLD}.x&domains=${searchWithoutTLD}.wallet&domains=${searchWithoutTLD}.bitcoin&domains=${searchWithoutTLD}.dao&domains=${searchWithoutTLD}.888&domains=${searchWithoutTLD}.blockchain&domains=${searchWithoutTLD}.zil`,
+          apiHeader
+        );
+
+        const hi = await axios.get(
+          `https://resolve.unstoppabledomains.com/domains/shadbolt.crypto`,
+          apiHeader
+        );
+
+        console.log(hi, "HAJ");
         //Add network and protocol to the array of objects from the API
         var result = await domainData.data.data.map(function (el) {
           var newObject = Object.assign({}, el);
