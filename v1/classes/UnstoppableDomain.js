@@ -26,8 +26,6 @@ UnstoppableDomain.prototype.set = function setUnstoppableDomain(
 };
 
 // Section 1: Unstoppable Domains API
-//TODO: Refactor this class to be a 'Search' class instead and make a seperate class for ENS + Unstoppable domain api/calls
-//The 'Search' class will be using the child classes UnstoppableDomains + ENS
 UnstoppableDomain.prototype.getUnstoppableDomainData =
   async function getUnstoppableDomainData(searchText) {
     var promise = new Promise(async (resolve, reject) => {
@@ -42,6 +40,11 @@ UnstoppableDomain.prototype.getUnstoppableDomainData =
           `https://resolve.unstoppabledomains.com/records?domains=${searchWithoutTLD}.crypto&domains=${searchWithoutTLD}.nft&domains=${searchWithoutTLD}.x&domains=${searchWithoutTLD}.wallet&domains=${searchWithoutTLD}.bitcoin&domains=${searchWithoutTLD}.dao&domains=${searchWithoutTLD}.888&domains=${searchWithoutTLD}.blockchain&domains=${searchWithoutTLD}.zil&key=crypto.ETH.address`,
           apiHeader
         );
+
+        //Check metadata: https://docs.unstoppabledomains.com/openapi/resolution/#tag/Meta-Data
+
+        //CHECK supported TLDS just get an array:
+        //https://docs.unstoppabledomains.com/developer-toolkit/resolution-integration-methods/resolution-service/endpoints/get-supported-tlds/
 
         //Add network and protocol to the array of objects from the API
         var result = await domainData.data.data.map(function (el) {
