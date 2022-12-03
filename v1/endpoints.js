@@ -5,12 +5,21 @@ var aptosHandler = require("./handlers/aptosHandler");
 const blockstacksHandler = require("./handlers/blockstacksHandler");
 const ensHandler = require("./handlers/ensHandler");
 const sidHandler = require("./handlers/sidHandler");
+const unstoppableDomainHandler = require("./handlers/unstoppableDomainHandler");
+
+/* endpoints.searchUnstoppableDomains = {
+  url: "/v1/unstoppableDomains/search/:search",
+  method: "get",
+  middleware: [],
+  handler: searchHandler.search,
+  description: "Search for unstoppableDomains",
+}; */
 
 endpoints.searchUnstoppableDomains = {
   url: "/v1/unstoppableDomains/search/:search",
   method: "get",
   middleware: [],
-  handler: searchHandler.search,
+  handler: unstoppableDomainHandler.get,
   description: "Search for unstoppableDomains",
 };
 
