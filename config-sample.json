@@ -6,7 +6,9 @@
     "password": "YOUR_DB_PASSWORD"
   },
   "unstoppable_domains": {
-    "API_KEY": "YOUR_API_KEY"
+    "API_KEY": "YOUR_API_KEY",
+    "PARTNER_API_KEY": "YOUR_PARTNER_API_KEY",
+    "RESELLER_ID": "YOUR_RESELLER_ID"
   },
   "rpc_urls": {
     "mainnet_eth": "YOUR_RPC_URL_TO_ETH_MAINNET"

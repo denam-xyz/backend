@@ -1,4 +1,6 @@
 .DS_STORE
+config.json
+
 node_modules
 scripts/flow/*/.flowconfig
 .flowconfig

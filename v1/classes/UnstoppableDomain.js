@@ -11,6 +11,13 @@ const apiHeader = {
   },
 };
 
+const apiHeaderPartner = {
+  method: "GET",
+  headers: {
+    Authorization: `Bearer ${config.unstoppable_domains.PARTNER_API_KEY}`,
+  },
+};
+
 function UnstoppableDomain(unstoppableDomain) {
   this.set(unstoppableDomain);
 }
@@ -26,10 +33,9 @@ UnstoppableDomain.prototype.set = function setUnstoppableDomain(
 };
 
 // Section 1: Unstoppable Domains API
-//TODO: Refactor this class to be a 'Search' class instead and make a seperate class for ENS + Unstoppable domain api/calls
-//The 'Search' class will be using the child classes UnstoppableDomains + ENS
 UnstoppableDomain.prototype.getUnstoppableDomainData =
   async function getUnstoppableDomainData(searchText) {
+    console.log(searchText, "searchText");
     var promise = new Promise(async (resolve, reject) => {
       try {
         //TODO: LOOP THROUGH THE LIST OF LIVE SUPPORTED TLDS but gives back HTML response so need to parse it
@@ -43,17 +49,21 @@ UnstoppableDomain.prototype.getUnstoppableDomainData =
           apiHeader
         );
 
-        try {
-          const hej = await axios.get(
-            `https://resolve.unstoppabledomains.com/records?domains=${searchWithoutTLD}.crypto&domains=${searchWithoutTLD}.nft&domains=${searchWithoutTLD}.x&domains=${searchWithoutTLD}.wallet&domains=${searchWithoutTLD}.bitcoin&domains=${searchWithoutTLD}.dao&domains=${searchWithoutTLD}.888&domains=${searchWithoutTLD}.blockchain&domains=${searchWithoutTLD}.zil`,
-            apiHeader
-          );
-          let url = `https://resolve.unstoppabledomains.com/records?domains=${searchWithoutTLD}.crypto&domains=${searchWithoutTLD}.nft&domains=${searchWithoutTLD}.x&domains=${searchWithoutTLD}.wallet&domains=${searchWithoutTLD}.bitcoin&domains=${searchWithoutTLD}.dao&domains=${searchWithoutTLD}.888&domains=${searchWithoutTLD}.blockchain&domains=${searchWithoutTLD}.zil`;
-          console.log(hej.data, "URL ENDPOINT USED:", url);
-          console.log(hej.data.data[0].records, "records");
-        } catch (err) {
-          console.log("COULD NOT FETCH");
-        }
+        const query = new URLSearchParams({
+          search: "fancyfox123.crypto,firstname,domainsforfree1.888",
+        }).toString();
+
+        const resellerId = config.unstoppable_domains.RESELLER_ID;
+        const resp = await fetch(
+          `https://unstoppabledomains.com/api/v2/resellers/${resellerId}/domains?${query}`,
+          apiHeaderPartner
+        );
+        console.log(resp, "RESPOOOONSE");
+
+        //Check metadata: https://docs.unstoppabledomains.com/openapi/resolution/#tag/Meta-Data
+
+        //CHECK supported TLDS just get an array:
+        //https://docs.unstoppabledomains.com/developer-toolkit/resolution-integration-methods/resolution-service/endpoints/get-supported-tlds/
 
         //Add network and protocol to the array of objects from the API
         var result = await domainData.data.data.map(function (el) {
