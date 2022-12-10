@@ -38,9 +38,6 @@ UnstoppableDomain.prototype.getUnstoppableDomainData =
     console.log(searchText, "searchText");
     var promise = new Promise(async (resolve, reject) => {
       try {
-        //TODO: LOOP THROUGH THE LIST OF LIVE SUPPORTED TLDS but gives back HTML response so need to parse it
-        //https://docs.unstoppabledomains.com/openapi/resolution/#operation/StatusController.listSupportedTlds
-
         //If user specified a TLD in his search, remove it and just search the name
         const searchWithoutTLD = searchText.split(".")[0];
         //TODO do not hardcode the TLDs, currently support:  .crypto .nft .x .wallet .bitcoin .dao .888 .zil .blockchain
@@ -49,21 +46,27 @@ UnstoppableDomain.prototype.getUnstoppableDomainData =
           apiHeader
         );
 
-        const query = new URLSearchParams({
-          search: "fancyfox123.crypto,firstname,domainsforfree1.888",
-        }).toString();
+        console.log(domainData.data.data, "DOMAINDATA before");
+
+        let supportedTLDs = await this.getListOfTLDs();
+        console.log(supportedTLDs, "supported tlds");
+
+        // Initialize the output string
+        let queryString = "";
+
+        // Loop through the searchArray and append each string to the searchString
+        supportedTLDs.forEach((searchTerm) => {
+          queryString += `search=${searchWithoutTLD}.${searchTerm}&`;
+        });
+        console.log(queryString, "FULL QUERY STRING");
 
         const resellerId = config.unstoppable_domains.RESELLER_ID;
-        const resp = await fetch(
-          `https://unstoppabledomains.com/api/v2/resellers/${resellerId}/domains?${query}`,
+        const resp = await axios.get(
+          `https://unstoppabledomains.com/api/v2/resellers/${resellerId}/domains?${queryString}`,
           apiHeaderPartner
         );
-        console.log(resp, "RESPOOOONSE");
 
-        //Check metadata: https://docs.unstoppabledomains.com/openapi/resolution/#tag/Meta-Data
-
-        //CHECK supported TLDS just get an array:
-        //https://docs.unstoppabledomains.com/developer-toolkit/resolution-integration-methods/resolution-service/endpoints/get-supported-tlds/
+        console.log(resp.data, "RESPOOOONSE");
 
         //Add network and protocol to the array of objects from the API
         var result = await domainData.data.data.map(function (el) {
@@ -88,12 +91,14 @@ UnstoppableDomain.prototype.getUnstoppableDomainData =
 
 UnstoppableDomain.prototype.getListOfTLDs = async function getListOfTLDs() {
   var promise = new Promise(async (resolve, reject) => {
+    //CHECK supported TLDS just get an array:
+    //https://docs.unstoppabledomains.com/developer-toolkit/resolution-integration-methods/resolution-service/endpoints/get-supported-tlds/
     const supportedTLDs = await axios.get(
-      `https://docs.unstoppabledomains.com/openapi/resolution/#operation/StatusController.listSupportedTlds`,
+      `https://resolve.unstoppabledomains.com/supported_tlds`,
       apiHeader
     );
     if (supportedTLDs) {
-      resolve(supportedTLDs);
+      resolve(supportedTLDs.data.tlds);
     } else {
       reject("Could not get the supported TLDs");
     }
