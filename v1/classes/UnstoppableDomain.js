@@ -40,36 +40,24 @@ UnstoppableDomain.prototype.getUnstoppableDomainData =
       try {
         //If user specified a TLD in his search, remove it and just search the name
         const searchWithoutTLD = searchText.split(".")[0];
-        //TODO do not hardcode the TLDs, currently support:  .crypto .nft .x .wallet .bitcoin .dao .888 .zil .blockchain
-        const domainData = await axios.get(
-          `https://resolve.unstoppabledomains.com/records?domains=${searchWithoutTLD}.crypto&domains=${searchWithoutTLD}.nft&domains=${searchWithoutTLD}.x&domains=${searchWithoutTLD}.wallet&domains=${searchWithoutTLD}.bitcoin&domains=${searchWithoutTLD}.dao&domains=${searchWithoutTLD}.888&domains=${searchWithoutTLD}.blockchain&domains=${searchWithoutTLD}.zil&key=crypto.ETH.address`,
-          apiHeader
-        );
-
-        console.log(domainData.data.data, "DOMAINDATA before");
-
         let supportedTLDs = await this.getListOfTLDs();
-        console.log(supportedTLDs, "supported tlds");
-
-        // Initialize the output string
         let queryString = "";
+        const resellerId = config.unstoppable_domains.RESELLER_ID;
 
         // Loop through the searchArray and append each string to the searchString
         supportedTLDs.forEach((searchTerm) => {
           queryString += `search=${searchWithoutTLD}.${searchTerm}&`;
         });
-        console.log(queryString, "FULL QUERY STRING");
 
-        const resellerId = config.unstoppable_domains.RESELLER_ID;
         const resp = await axios.get(
           `https://unstoppabledomains.com/api/v2/resellers/${resellerId}/domains?${queryString}`,
           apiHeaderPartner
         );
 
-        console.log(resp.data, "RESPOOOONSE");
+        let checkedData = await checkIfHasOwnerOrResolver(resp.data.domains);
 
         //Add network and protocol to the array of objects from the API
-        var result = await domainData.data.data.map(function (el) {
+        var result = await checkedData.map(function (el) {
           var newObject = Object.assign({}, el);
           newObject.network = "eth";
           newObject.protocol = "ud";
@@ -105,6 +93,25 @@ UnstoppableDomain.prototype.getListOfTLDs = async function getListOfTLDs() {
   });
   return promise;
 };
+
+async function checkIfHasOwnerOrResolver(dataArray) {
+  const extractedData = [];
+  dataArray.forEach((data) => {
+    // Extract the name, ownerAddress, and resolution from each object
+    const {
+      domain: { name, ownerAddress, resolution },
+    } = data;
+
+    // Set the resolver to the value of the resolution key
+    const resolver = resolution;
+    // Add the extracted data to the extractedData array, no need to add owneraddress
+    extractedData.push({
+      domain: name,
+      records: resolver,
+    });
+  });
+  return extractedData;
+}
 
 /* Section 3: CRUD, CURRENTLY NO CRUD OPERATIONS ARE USED */
 /* 
