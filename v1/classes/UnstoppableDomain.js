@@ -11,6 +11,13 @@ const apiHeader = {
   },
 };
 
+const apiHeaderPartner = {
+  method: "GET",
+  headers: {
+    Authorization: `Bearer ${config.unstoppable_domains.PARTNER_API_KEY}`,
+  },
+};
+
 function UnstoppableDomain(unstoppableDomain) {
   this.set(unstoppableDomain);
 }
@@ -28,26 +35,29 @@ UnstoppableDomain.prototype.set = function setUnstoppableDomain(
 // Section 1: Unstoppable Domains API
 UnstoppableDomain.prototype.getUnstoppableDomainData =
   async function getUnstoppableDomainData(searchText) {
+    console.log(searchText, "searchText");
     var promise = new Promise(async (resolve, reject) => {
       try {
-        //TODO: LOOP THROUGH THE LIST OF LIVE SUPPORTED TLDS but gives back HTML response so need to parse it
-        //https://docs.unstoppabledomains.com/openapi/resolution/#operation/StatusController.listSupportedTlds
-
         //If user specified a TLD in his search, remove it and just search the name
         const searchWithoutTLD = searchText.split(".")[0];
-        //TODO do not hardcode the TLDs, currently support:  .crypto .nft .x .wallet .bitcoin .dao .888 .zil .blockchain
-        const domainData = await axios.get(
-          `https://resolve.unstoppabledomains.com/records?domains=${searchWithoutTLD}.crypto&domains=${searchWithoutTLD}.nft&domains=${searchWithoutTLD}.x&domains=${searchWithoutTLD}.wallet&domains=${searchWithoutTLD}.bitcoin&domains=${searchWithoutTLD}.dao&domains=${searchWithoutTLD}.888&domains=${searchWithoutTLD}.blockchain&domains=${searchWithoutTLD}.zil&key=crypto.ETH.address`,
-          apiHeader
+        let supportedTLDs = await this.getListOfTLDs();
+        let queryString = "";
+        const resellerId = config.unstoppable_domains.RESELLER_ID;
+
+        // Loop through the searchArray and append each string to the searchString
+        supportedTLDs.forEach((searchTerm) => {
+          queryString += `search=${searchWithoutTLD}.${searchTerm}&`;
+        });
+
+        const resp = await axios.get(
+          `https://unstoppabledomains.com/api/v2/resellers/${resellerId}/domains?${queryString}`,
+          apiHeaderPartner
         );
 
-        //Check metadata: https://docs.unstoppabledomains.com/openapi/resolution/#tag/Meta-Data
-
-        //CHECK supported TLDS just get an array:
-        //https://docs.unstoppabledomains.com/developer-toolkit/resolution-integration-methods/resolution-service/endpoints/get-supported-tlds/
+        let checkedData = await checkIfHasOwnerOrResolver(resp.data.domains);
 
         //Add network and protocol to the array of objects from the API
-        var result = await domainData.data.data.map(function (el) {
+        var result = await checkedData.map(function (el) {
           var newObject = Object.assign({}, el);
           newObject.network = "eth";
           newObject.protocol = "ud";
@@ -69,18 +79,51 @@ UnstoppableDomain.prototype.getUnstoppableDomainData =
 
 UnstoppableDomain.prototype.getListOfTLDs = async function getListOfTLDs() {
   var promise = new Promise(async (resolve, reject) => {
+    //CHECK supported TLDS just get an array:
+    //https://docs.unstoppabledomains.com/developer-toolkit/resolution-integration-methods/resolution-service/endpoints/get-supported-tlds/
     const supportedTLDs = await axios.get(
-      `https://docs.unstoppabledomains.com/openapi/resolution/#operation/StatusController.listSupportedTlds`,
+      `https://resolve.unstoppabledomains.com/supported_tlds`,
       apiHeader
     );
     if (supportedTLDs) {
-      resolve(supportedTLDs);
+      resolve(supportedTLDs.data.tlds);
     } else {
       reject("Could not get the supported TLDs");
     }
   });
   return promise;
 };
+
+async function checkIfHasOwnerOrResolver(dataArray) {
+  const extractedData = [];
+  dataArray.forEach((data) => {
+    // Extract the name, ownerAddress, and resolution from each object
+    const {
+      domain: { name, ownerAddress, resolution },
+    } = data;
+
+    // Set the resolver to the value of the resolution key
+    const resolver = resolution;
+    // Add the extracted data to the extractedData array,
+    if (Object.keys(resolution).length > 0) {
+      extractedData.push({
+        domain: name,
+        records: resolver,
+      });
+    } else if (ownerAddress !== null)
+      extractedData.push({
+        domain: name,
+        records: { "crypto.ETH.address": ownerAddress },
+      });
+    else {
+      extractedData.push({
+        domain: name,
+        records: {},
+      });
+    }
+  });
+  return extractedData;
+}
 
 /* Section 3: CRUD, CURRENTLY NO CRUD OPERATIONS ARE USED */
 /* 

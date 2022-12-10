@@ -23,25 +23,35 @@ SidDomain.prototype.getSid = async function getSid(name) {
       config.rpc_urls.mainnet_bsc
     );
 
-    const sid = new SID({
-      provider,
-      sidAddress: SIDfunctions.getSidAddress("56"),
-    });
+    //.bnb addresses must have a name length of 3 or more
+    if (name.length >= 3) {
+      try {
+        const sid = new SID({
+          provider,
+          sidAddress: SIDfunctions.getSidAddress("56"),
+        });
 
-    name = `${name}.bnb`;
-    const address = await sid.name(name).getAddress(); // 0x123
-    if (name) {
-      resolve({
-        domain: name,
-        records:
-          address !== ethers.constants.AddressZero
-            ? { "crypto.BNB.address": address }
-            : {},
-        network: "bsc",
-        protocol: "sid",
-      });
+        name = `${name}.bnb`;
+        const address = await sid.name(name).getOwner(); // 0x123
+        if (name) {
+          resolve({
+            domain: name,
+            records:
+              address !== ethers.constants.AddressZero
+                ? { "crypto.BNB.address": address }
+                : {},
+            network: "bsc",
+            protocol: "sid",
+          });
+        } else {
+          reject();
+        }
+      } catch (err) {
+        reject(err);
+      }
     } else {
-      reject();
+      //else resolve empty obj
+      resolve({});
     }
   });
   return promise;
