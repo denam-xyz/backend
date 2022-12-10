@@ -104,11 +104,23 @@ async function checkIfHasOwnerOrResolver(dataArray) {
 
     // Set the resolver to the value of the resolution key
     const resolver = resolution;
-    // Add the extracted data to the extractedData array, no need to add owneraddress
-    extractedData.push({
-      domain: name,
-      records: resolver,
-    });
+    // Add the extracted data to the extractedData array,
+    if (Object.keys(resolution).length > 0) {
+      extractedData.push({
+        domain: name,
+        records: resolver,
+      });
+    } else if (ownerAddress !== null)
+      extractedData.push({
+        domain: name,
+        records: { "crypto.ETH.address": ownerAddress },
+      });
+    else {
+      extractedData.push({
+        domain: name,
+        records: {},
+      });
+    }
   });
   return extractedData;
 }
